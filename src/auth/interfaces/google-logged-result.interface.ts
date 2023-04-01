@@ -1,6 +1,6 @@
-import { UserDocument } from "src/resources/users/schemas/user.schema"
+import { UserDocument } from 'src/resources/users/schemas/user.schema'
 
 export interface IGoogleLoggedResult {
-    isNew: boolean
-    user: UserDocument
+  isNew: boolean
+  user: UserDocument
 }
