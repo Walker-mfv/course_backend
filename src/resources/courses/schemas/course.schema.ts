@@ -181,11 +181,11 @@ export const CourseAsyncModelFactory: AsyncModelFactory = {
     useFactory: () => {
         const schema = CourseSchema;
         schema.pre<Course>('save', function (next) {
-            console.warn('course:save()');
+            // console.warn('course:save()');
             next();
         });
         schema.pre<Course>('remove', function (next) {
-            console.warn('course:remove()');
+            // console.warn('course:remove()');
             next();
         });
         return schema;

@@ -1,36 +1,36 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import axios from 'axios';
-import { Response } from 'express';
-import lodash from 'lodash';
-import moment from 'moment';
-import { STUDENT_ID } from 'src/common/utils/constants/data.constant';
-import { Provider } from 'src/common/utils/constants/enums';
-import Helper from 'src/common/utils/helpers/helper.helper';
-import { Role } from 'src/resources/roles/schemas/role.schema';
-import { SignUpDto } from 'src/resources/users/dto/sign-up.dto';
-import { ResetPasswordDto } from 'src/resources/users/dto/update-user.dto';
-import { User } from 'src/resources/users/schemas/user.schema';
-import { UsersService } from 'src/resources/users/users.service';
-import { CreateUserDto } from './../resources/users/dto/create-user.dto';
-import { UserDocument } from './../resources/users/schemas/user.schema';
-import { VerifyRecaptchaDto } from './dto/varify-recaptcha.dto';
-import IAuthTokens from './interfaces/auth-tokens.interface';
-import { IGoogleLoggedResult } from './interfaces/google-logged-result.interface';
-import { IGoogleUser } from './interfaces/google-user.interface';
-import IJwtUser from './interfaces/jwt-user.interface';
+import { BadRequestException, Injectable } from '@nestjs/common'
+import { JwtService } from '@nestjs/jwt'
+import axios from 'axios'
+import { Response } from 'express'
+import lodash from 'lodash'
+import moment from 'moment'
+import { STUDENT_ID } from 'src/common/utils/constants/data.constant'
+import { Provider } from 'src/common/utils/constants/enums'
+import Helper from 'src/common/utils/helpers/helper.helper'
+import { Role } from 'src/resources/roles/schemas/role.schema'
+import { SignUpDto } from 'src/resources/users/dto/sign-up.dto'
+import { ResetPasswordDto } from 'src/resources/users/dto/update-user.dto'
+import { User } from 'src/resources/users/schemas/user.schema'
+import { UsersService } from 'src/resources/users/users.service'
+import { CreateUserDto } from './../resources/users/dto/create-user.dto'
+import { UserDocument } from './../resources/users/schemas/user.schema'
+import { VerifyRecaptchaDto } from './dto/varify-recaptcha.dto'
+import IAuthTokens from './interfaces/auth-tokens.interface'
+import { IGoogleLoggedResult } from './interfaces/google-logged-result.interface'
+import { IGoogleUser } from './interfaces/google-user.interface'
+import IJwtUser from './interfaces/jwt-user.interface'
 
 @Injectable()
 export class AuthService {
-  private verificationCodeLength = 6;
-  private verificationExpireInMinute = 30;
+  private verificationCodeLength = 6
+  private verificationExpireInMinute = 30
 
   constructor(private readonly usersService: UsersService, private jwtService: JwtService) {}
 
   async verifyEmail(code: string) {
-    const user = await this.usersService.model.findOne({ permissionCode: code });
+    const user = await this.usersService.model.findOne({ permissionCode: code })
     if (!!user) {
-      const diffMinutes = moment().diff(user.permissionCodeTimestamp, 'minutes');
+      const diffMinutes = moment().diff(user.permissionCodeTimestamp, 'minutes')
       if (diffMinutes <= this.verificationExpireInMinute) {
         return this.usersService.model.updateOne(
           { _id: user._id },
@@ -43,7 +43,7 @@ export class AuthService {
               permissionCodeTimestamp: '',
             },
           }
-        );
+        )
       } else {
         this.usersService.model.updateOne(
           {
@@ -55,33 +55,34 @@ export class AuthService {
               permissionCodeTimestamp: '',
             },
           }
-        );
+        )
       }
     }
-    throw new BadRequestException();
+    throw new BadRequestException()
   }
 
   async isValidPermissionCode(code: string) {
-    const user = await this.usersService.model.findOne({ permissionCode: code }).exec();
+    const user = await this.usersService.model.findOne({ permissionCode: code }).exec()
     if (!!user) {
-      const diffMinutes = moment().diff(user.permissionCodeTimestamp, 'minutes');
+      const diffMinutes = moment().diff(user.permissionCodeTimestamp, 'minutes')
       if (diffMinutes <= this.verificationExpireInMinute) {
-        return true;
+        return true
       }
     }
-    return false;
+    return false
   }
+
   async updatePassword(data: ResetPasswordDto) {
-    const isValid = await this.isValidPermissionCode(data.token);
+    const isValid = await this.isValidPermissionCode(data.token)
     if (isValid) {
-      const password = Helper.md5(data.password);
+      const password = Helper.md5(data.password)
       return this.usersService.model.updateOne(
         { permissionCode: data.token },
         {
           $set: { password },
           $unset: { permissionCode: '', permissionCodeTimestamp: '' },
         }
-      );
+      )
     } else {
       this.usersService.model.updateOne(
         {
@@ -93,17 +94,17 @@ export class AuthService {
             permissionCodeTimestamp: '',
           },
         }
-      );
+      )
     }
-    return null;
+    return null
   }
 
   async localSignUp(data: SignUpDto) {
-    const { firstName, lastName, email, password } = data;
+    const { firstName, lastName, email, password } = data
     // check
     const existingItem = await this.usersService.model.findOne({
       email: data.email,
-    });
+    })
     if (!existingItem) {
       // email not exist => create new
       const user = await this.usersService.create({
@@ -116,11 +117,11 @@ export class AuthService {
         password,
         providers: ['password'],
         role: STUDENT_ID as unknown as Role,
-        //
+
         permissionCode: Helper.genRandomNumber(this.verificationCodeLength),
         permissionCodeTimestamp: new Date().toISOString(),
-      });
-      return user;
+      })
+      return user
     } else if (existingItem.status == 'unverified') {
       // email exist => reassign permission code
       const data = {
@@ -131,36 +132,36 @@ export class AuthService {
         password,
         permissionCode: Helper.genRandomNumber(this.verificationCodeLength),
         permissionCodeTimestamp: new Date().toISOString(),
-      };
-      const user = await this.usersService.updateById(existingItem._id, data);
-      return user;
+      }
+      const user = await this.usersService.updateById(existingItem._id, data)
+      return user
     }
-    return null;
+    return null
   }
 
   async validateUser(email: string, pass: string): Promise<User | null> {
-    const user: User = await this.usersService.loginWithEmailAndPassword(email, pass);
+    const user: User = await this.usersService.loginWithEmailAndPassword(email, pass)
     if (user) {
-      return user;
+      return user
     }
-    return null;
+    return null
   }
 
   async handleGoogleLoggedResult(ggUser: IGoogleUser): Promise<IGoogleLoggedResult> {
-    let user: UserDocument = await this.usersService.loginWithEmail(ggUser.email);
+    let user: UserDocument = await this.usersService.loginWithEmail(ggUser.email)
 
     // exist
     if (user) {
       if (!user.providers.includes(Provider.GOOGLE)) {
         const data = {
           providers: [...user.providers, Provider.GOOGLE],
-        };
-        if (!user.profile.avatar) lodash.set(data, 'profile.avatar', ggUser.picture);
-        user = await this.usersService.updateById(user._id, data);
+        }
+        if (!user.profile.avatar) lodash.set(data, 'profile.avatar', ggUser.picture)
+        user = await this.usersService.updateById(user._id, data)
 
-        return { isNew: false, user };
+        return { isNew: false, user }
       }
-      return { isNew: false, user };
+      return { isNew: false, user }
     }
 
     // create new
@@ -175,19 +176,19 @@ export class AuthService {
       providers: [Provider.GOOGLE],
       role: STUDENT_ID,
       refreshToken: Helper.genRandomHash(),
-    };
-    (await this.usersService.create(userData)) as UserDocument;
-    user = await this.usersService.loginWithEmail(ggUser.email);
-    return { isNew: true, user };
+    }
+    ;(await this.usersService.create(userData)) as UserDocument
+    user = await this.usersService.loginWithEmail(ggUser.email)
+    return { isNew: true, user }
   }
 
   //
   async getAuthUserById(id: string) {
-    return this.usersService.getAuthUserById(id);
+    return this.usersService.getAuthUserById(id)
   }
 
   async getUserByRefreshToken(refreshToken: string) {
-    return this.usersService.getAuthUserByRefreshToken(refreshToken);
+    return this.usersService.getAuthUserByRefreshToken(refreshToken)
   }
 
   // HANDLE JWT LOGIN
@@ -195,17 +196,17 @@ export class AuthService {
     const token = {
       refreshToken: user.refreshToken,
       accessToken: this.genAccessToken(user),
-    };
-    return token;
+    }
+    return token
   }
 
   async logout(user: UserDocument): Promise<void> {
-    this.usersService.deleteFields({ _id: user._id }, ['refreshToken']);
+    this.usersService.deleteFields({ _id: user._id }, ['refreshToken'])
   }
 
   setAuthTokenCookies(res: Response, tokens: IAuthTokens) {
-    res.cookie('refreshToken', tokens.refreshToken);
-    res.cookie('accessToken', tokens.accessToken);
+    res.cookie('refreshToken', tokens.refreshToken)
+    res.cookie('accessToken', tokens.accessToken)
   }
 
   genAccessToken(user: User): string {
@@ -218,20 +219,20 @@ export class AuthService {
         permissions: user.role.permissions,
         name: user.role.name,
       },
-    };
-    return this.jwtService.sign({ sub });
+    }
+    return this.jwtService.sign({ sub })
   }
 
   async verifyRecaptcha(data: VerifyRecaptchaDto) {
-    const { secret, response } = data;
+    const { secret, response } = data
     const result = await axios
       .post('https://www.google.com/recaptcha/api/siteverify', `secret=${secret}&response=${response}`, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       })
-      .then((res) => res.data);
+      .then((res) => res.data)
 
-    return result;
+    return result
   }
 }
