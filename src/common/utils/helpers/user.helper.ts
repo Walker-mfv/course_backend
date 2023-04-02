@@ -1,5 +1,5 @@
 export default class UserHelper {
-    static genFullName(firstName = '', lastName = '') {
-        return `${firstName} ${lastName}`.trim();
-    }
+  static genFullName(firstName = '', lastName = '') {
+    return `${firstName} ${lastName}`.trim()
+  }
 }

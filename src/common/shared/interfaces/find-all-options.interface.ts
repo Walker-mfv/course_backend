@@ -1,3 +1,3 @@
-export default interface IFindAllOptions{
-    isQueryStandardized: boolean;
+export default interface IFindAllOptions {
+  isQueryStandardized: boolean
 }

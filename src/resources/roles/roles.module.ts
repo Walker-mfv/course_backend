@@ -10,22 +10,22 @@ import { DocumentPermission, DocumentPermissionSchema } from './schemas/document
 import { Role, RoleSchema } from './schemas/role.schema'
 
 @Module({
-    imports: [
-        MongooseModule.forFeature([
-            {
-                name: Role.name,
-                schema: RoleSchema,
-            },
-            {
-                name: DocumentPermission.name,
-                schema: DocumentPermissionSchema,
-            },
-        ]),
-        SharedModule,
-        CaslModule,
-    ],
-    controllers: [DocumentPermissionsController, RolePermissionsController, RolesController],
-    providers: [RolesService],
-    exports: [RolesService],
+  imports: [
+    MongooseModule.forFeature([
+      {
+        name: Role.name,
+        schema: RoleSchema,
+      },
+      {
+        name: DocumentPermission.name,
+        schema: DocumentPermissionSchema,
+      },
+    ]),
+    SharedModule,
+    CaslModule,
+  ],
+  controllers: [DocumentPermissionsController, RolePermissionsController, RolesController],
+  providers: [RolesService],
+  exports: [RolesService],
 })
 export class RolesModule {}

@@ -1,9 +1,9 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsDefined, IsMongoId } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger'
+import { IsDefined, IsMongoId } from 'class-validator'
 
 export class CreatePaymentDto {
-    @ApiProperty()
-    @IsDefined()
-    @IsMongoId()
-    user: string;
+  @ApiProperty()
+  @IsDefined()
+  @IsMongoId()
+  user: string
 }

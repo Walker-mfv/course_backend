@@ -1,1 +1,1 @@
-export const VIEW_INSTRUCTOR_ID = 'viewInstructorId';
+export const VIEW_INSTRUCTOR_ID = 'viewInstructorId'

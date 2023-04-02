@@ -9,14 +9,14 @@ import { UserCourseService } from './user-course.service'
 @ApiTags('user-course')
 @Controller('user-course')
 export class UserCourseController extends BaseController<UserCourse, UserCourseDocument> {
-    constructor(private readonly userCourseService: UserCourseService) {
-        super(userCourseService)
-    }
+  constructor(private readonly userCourseService: UserCourseService) {
+    super(userCourseService)
+  }
 
-    @Patch(':id')
-    @UseGuards(JwtAuthGuard)
-    @ApiBearerAuth(ACCESS_TOKEN_KEY)
-    update(@Param('id') id: string, @Body() data: any) {
-        return this.userCourseService.updateById(id, data)
-    }
+  @Patch(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth(ACCESS_TOKEN_KEY)
+  update(@Param('id') id: string, @Body() data: any) {
+    return this.userCourseService.updateById(id, data)
+  }
 }

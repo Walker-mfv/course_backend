@@ -1,4 +1,4 @@
-export default interface IEmbedField{
-    name: string,
-    isArray:boolean
+export default interface IEmbedField {
+  name: string
+  isArray: boolean
 }

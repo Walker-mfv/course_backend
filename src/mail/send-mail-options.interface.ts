@@ -1,20 +1,20 @@
 // from
-import { SendMailOptions } from 'nodemailer';
+import { SendMailOptions } from 'nodemailer'
 
 export interface ISendMailOptions extends SendMailOptions {
-    to?: string;
+  to?: string
 
-    from?: string;
+  from?: string
 
-    subject?: string;
+  subject?: string
 
-    text?: string;
+  text?: string
 
-    html?: string;
+  html?: string
 
-    template?: string;
+  template?: string
 
-    context?: {
-        [name: string]: any;
-    };
+  context?: {
+    [name: string]: any
+  }
 }

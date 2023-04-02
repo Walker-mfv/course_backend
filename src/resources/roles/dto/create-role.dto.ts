@@ -4,31 +4,31 @@ import { IsOrdering } from 'src/common/shared/validators/shared.vld'
 import { IsRoleName } from './role.vld'
 
 export class CreateRoleDto {
-    @ApiProperty()
-    @IsRoleName({ required: true })
-    name: string
+  @ApiProperty()
+  @IsRoleName({ required: true })
+  name: string
 
-    @ApiProperty()
-    @IsOrdering({ required: true })
-    ordering: number
+  @ApiProperty()
+  @IsOrdering({ required: true })
+  ordering: number
 
-    @ApiProperty()
-    @IsDefined()
-    @IsString()
-    status: string
+  @ApiProperty()
+  @IsDefined()
+  @IsString()
+  status: string
 
-    @ApiProperty({ required: false })
-    @IsOptional()
-    @IsString({ each: true })
-    permissions?: string[]
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString({ each: true })
+  permissions?: string[]
 
-    @ApiProperty({ required: false })
-    @IsOptional()
-    @IsDateString()
-    createdAt?: string
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsDateString()
+  createdAt?: string
 
-    @ApiProperty({ required: false })
-    @IsOptional()
-    @IsDateString()
-    updatedAt?: string
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsDateString()
+  updatedAt?: string
 }

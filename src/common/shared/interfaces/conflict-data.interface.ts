@@ -1,5 +1,5 @@
-import { TController } from '../types/shared.type';
+import { TController } from '../types/shared.type'
 
 export default interface IConflictData {
-    reference: { type: TController; amount: number };
+  reference: { type: TController; amount: number }
 }
