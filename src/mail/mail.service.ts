@@ -36,6 +36,7 @@ export class MailService {
             `,
     })
   }
+
   signUp(user: User) {
     const link = `${this.configService.get('domain.api')}/auth/verify-email?code=${user.permissionCode}`
     return this.mailerService.sendMail({

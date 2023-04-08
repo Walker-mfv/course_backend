@@ -34,7 +34,7 @@ import { ActivityLogsModule } from './resources/activity-logs/activity-logs.modu
   imports: [
     SharedModule,
     ConfigModule.forRoot({
-      envFilePath: `${process.cwd()}/config/env/${process.env.NODE_ENV}.env`,
+      envFilePath: `${process.cwd()}/config/env/.env.${process.env.NODE_ENV}`,
       load: [configuration],
     }),
     MongooseModule.forRoot(
