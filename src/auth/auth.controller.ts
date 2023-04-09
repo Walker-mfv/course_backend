@@ -89,6 +89,26 @@ export class AuthController {
     throw new BadRequestException('email existed')
   }
 
+  @Get('send-mail')
+  async sendMail() {
+    const user = {
+      profile: {
+        firstName: 'Lai',
+        lastName: 'Phuc',
+      },
+      status: 'unverified',
+      email: 'laiphuc2310@gmail.com',
+      password: '123123',
+      providers: ['password'],
+      role: '622a1be2a84b6d2e216a9a8c',
+
+      permissionCode: '123123',
+      permissionCodeTimestamp: new Date().toISOString(),
+    }
+    this.mailService.sendMail(user as any)
+    return true
+  }
+
   // @Post('sign-up')
   // async verifyemail(@Body() data: SignUpDto) {
   //   // Send mail sign-up

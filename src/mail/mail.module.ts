@@ -2,6 +2,8 @@ import { ConfigService } from '@nestjs/config'
 import { MailerModule } from '@nestjs-modules/mailer'
 import { Module } from '@nestjs/common'
 import { MailService } from './mail.service'
+import { join } from 'path'
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter'
 
 @Module({
   imports: [
@@ -17,21 +19,16 @@ import { MailService } from './mail.service'
           },
         },
         defaults: {
-          from: '"Online Course" <onlincourse.hsu@gmail.com>',
+          from: '"Online Course <courseonlineweb.edu@gmail.com',
         },
-
-        // template: {
-        //     dir: join(__dirname, 'templates'),
-        //     adapter: new HandlebarsAdapter(),
-        //     options: {
-        //         strict: true,
-        //     },
-        // },
+        template: {
+          dir: join(__dirname, './templates'),
+          adapter: new HandlebarsAdapter(),
+          options: {
+            strict: true,
+          },
+        },
       }),
-
-      // useFactory: async (config: ConfigService) => ({
-      // }),
-      // inject: [ConfigService],
     }),
   ],
   providers: [MailService, ConfigService],

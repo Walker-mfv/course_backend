@@ -37,20 +37,26 @@ export class MailService {
     })
   }
 
+  sendMail(user: User) {
+    return this.mailerService.sendMail({
+      to: user.email,
+      subject: 'Welcome to Online Courses!',
+      template: `signup`,
+    })
+  }
+
   signUp(user: User) {
     const link = `${this.configService.get('domain.api')}/auth/verify-email?code=${user.permissionCode}`
     return this.mailerService.sendMail({
       to: user.email,
       subject: 'Welcome to Online Courses!',
-      html: `
-            <p>Hi ${user.profile.firstName},</p>
-            <p>Thank you for signing up for <a href="${this.configService.get(
-              'domain.client'
-            )}"><strong>${APP_NAME}</strong></a>.</p>
-            <p>Your verification code is <strong>${user.permissionCode}</strong>.</p>
-            <p>Or you can click <a href="${link}"><strong>here</strong></a> to activate your account.</p>
-            <p><i>* These code and link only works within 30 minutes.</i></p>
-            `,
+      context: {
+        domain: this.configService.get('domain.client'),
+        app_name: APP_NAME,
+        permission_code: user.permissionCode,
+        link,
+      },
+      template: 'signup',
     })
   }
 
@@ -59,12 +65,12 @@ export class MailService {
     return this.mailerService.sendMail({
       to: user.email,
       subject: 'Reset password',
-      html: `
-            <p>Hi ${user.profile.fullName},</p>
-            <p>- A password reset event has been triggered. The password reset window is limited to 30 minutes.</p>
-            <p>- If you do not reset your password within 30 minutes, you will need to submit a new request.</p>
-            <p>- To complete the password reset process, click <a href="${link}"><strong>here</strong></a>.</p>
-            <p>Thank you and good a nice day.</p>`,
+      context: {
+        domain: this.configService.get('domain.client'),
+        app_name: APP_NAME,
+        link,
+      },
+      template: 'forgot-password',
     })
   }
 }

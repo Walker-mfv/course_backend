@@ -1,4 +1,3 @@
-// from
 import { SendMailOptions } from 'nodemailer'
 
 export interface ISendMailOptions extends SendMailOptions {
