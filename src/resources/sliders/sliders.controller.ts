@@ -31,15 +31,18 @@ export class SlidersController extends BaseController<Slider, SliderDocument> {
   constructor(private readonly slidersService: SlidersService) {
     super(slidersService)
   }
+
   // FETCHES
   @Get('home')
   getLatestItems(@Query() query: FetchOptionsDto) {
     return this.slidersService.getHomeItems(query)
   }
+
   @Get('count-home')
   countLatestItems() {
     return this.slidersService.countHomeItems()
   }
+
   @Get()
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)
@@ -47,7 +50,7 @@ export class SlidersController extends BaseController<Slider, SliderDocument> {
   protected async fetchAll(@Query() query: ClientQueryDto): Promise<Slider[]> {
     return super.findAll(query)
   }
-  //
+
   @Get('count')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)
@@ -56,7 +59,7 @@ export class SlidersController extends BaseController<Slider, SliderDocument> {
   async count(@Query() query: ClientQueryDto): Promise<number> {
     return super.count(query)
   }
-  //
+
   @Get(':id')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)
@@ -72,6 +75,7 @@ export class SlidersController extends BaseController<Slider, SliderDocument> {
   create(@Body() data: CreateSliderDto) {
     return this.slidersService.create(data)
   }
+
   // UPDATE
   @Patch(':id')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
@@ -80,6 +84,7 @@ export class SlidersController extends BaseController<Slider, SliderDocument> {
   update(@Param('id') id: string, @Body() data: UpdateSliderDto) {
     return this.slidersService.updateById(id, data)
   }
+
   // DELETE
   @Delete('records')
   @UseGuards(JwtAuthGuard, PoliciesGuard)
@@ -88,7 +93,7 @@ export class SlidersController extends BaseController<Slider, SliderDocument> {
   async deleteRecords(@Query() ids: IdsDto): Promise<Slider[]> {
     return super.deleteMany(ids)
   }
-  //
+
   @Delete(':id')
   @UseGuards(JwtAuthGuard, PoliciesGuard)
   @ApiBearerAuth(ACCESS_TOKEN_KEY)

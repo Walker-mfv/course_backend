@@ -19,7 +19,7 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
           },
         },
         defaults: {
-          from: '"Online Course <courseonlineweb.edu@gmail.com',
+          from: 'Online Course courseonlineweb.edu@gmail.com',
         },
         template: {
           dir: join(__dirname, './templates'),

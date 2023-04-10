@@ -68,7 +68,6 @@ export class UsersService extends BaseModel<User, UserDocument> {
     return !!item
   }
 
-  //
   async getAuthUserByRefreshToken(refreshToken: string): Promise<User> {
     const user = await this.model.findOne({ status: 'active', refreshToken })
     if (user) {
@@ -110,11 +109,11 @@ export class UsersService extends BaseModel<User, UserDocument> {
       .lean()
       .exec()
     if (user) {
-      user.role.permissions = user.role.permissions.map((item) => {
+      user.role.permissions = user.role.permissions.map((item: any) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { _id, onlyForCreator, ...props } = item
         if (onlyForCreator) {
-          ;(props as any).onlyForCreator = true
+          props.onlyForCreator = true
         }
         return props
       }) as Permission[]
@@ -125,16 +124,16 @@ export class UsersService extends BaseModel<User, UserDocument> {
   async findByEmail(email: string): Promise<UserDocument | null> {
     return this.findOne({ email })
   }
+
   async findByEmailAndPassword(email: string, password: string): Promise<UserDocument | null> {
     return this.findOne({ email, password })
   }
-  //
+
   async create(data: any): Promise<UserDocument> {
     this.autoGenFullName(data)
     return super.create(data)
   }
 
-  //
   async loginWithEmailAndPassword(email: string, password: string): Promise<User | null> {
     // const populates = this.getPopulates({ lookupMode: 'detail' })
 
@@ -176,7 +175,7 @@ export class UsersService extends BaseModel<User, UserDocument> {
       )
       .populate(populates)
   }
-  //
+
   async updateCart(userId: string, courseIds: string[]) {
     return this.userModel.updateOne(
       { _id: userId },
@@ -187,6 +186,7 @@ export class UsersService extends BaseModel<User, UserDocument> {
       }
     )
   }
+
   async addCourseToCart(userId: string, courseId: string) {
     const item = await this.userModel.findById(userId)
     if (item) {
@@ -197,6 +197,7 @@ export class UsersService extends BaseModel<User, UserDocument> {
       }
     }
   }
+
   async deleteCourseInCart(userId: string, courseId: string) {
     const item = await this.userModel.findById(userId)
     if (item) {
@@ -204,6 +205,7 @@ export class UsersService extends BaseModel<User, UserDocument> {
       await item.save()
     }
   }
+
   async handleCheckout(data: IMomoPaymentExtraData, date?: Date) {
     const userCourseIds = await this.userCourseService.createUserCourses(data.userId, data.courses, date)
     return this.userModel.findOneAndUpdate(
@@ -217,7 +219,7 @@ export class UsersService extends BaseModel<User, UserDocument> {
       { new: true }
     )
   }
-  // ME
+
   async fetchCart(userId: string): Promise<Cart> {
     const doc = await this.userModel
       .findById(userId)
@@ -291,7 +293,6 @@ export class UsersService extends BaseModel<User, UserDocument> {
     }
     return false
   }
-  //
 
   // wishlist
   async addToWishlist(userId: string, data: FavCoursesDto) {

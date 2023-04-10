@@ -147,6 +147,27 @@ export class AuthService {
     return null
   }
 
+  async validateEmailGoogleAuthUnverified(email: string): Promise<boolean> {
+    const user: User = await this.usersService.findByEmail(email)
+
+    if (user && user.status === 'unverified') {
+      await this.usersService.model.updateOne(
+        { _id: user._id },
+        {
+          $set: {
+            status: 'active',
+          },
+          $unset: {
+            permissionCode: '',
+            permissionCodeTimestamp: '',
+          },
+        }
+      )
+      return true
+    }
+    return false
+  }
+
   async handleGoogleLoggedResult(ggUser: IGoogleUser): Promise<IGoogleLoggedResult> {
     let user: UserDocument = await this.usersService.loginWithEmail(ggUser.email)
 

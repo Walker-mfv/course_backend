@@ -188,11 +188,14 @@ export class AuthController {
 
   @Get('google/redirect')
   @UseGuards(GoogleAuthGuard)
-  googleAuthRedirect(@Request() req, @Res({ passthrough: true }) res: Response) {
+  async googleAuthRedirect(@Request() req, @Res({ passthrough: true }) res: Response) {
     // redirect back to waiting path when logged
     const { waitingRedirectPath = '' } = req.cookies
     if (waitingRedirectPath) res.clearCookie('waitingRedirectPath')
+
+    await this.authService.validateEmailGoogleAuthUnverified(req.user.email)
     const tokens = this.authService.genTokens(req.user)
+
     return res.redirect(
       `${this.configService.get('domain.client')}/${waitingRedirectPath}?logged-token=${tokens.refreshToken}`
     )
