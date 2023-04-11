@@ -109,17 +109,6 @@ export class AuthController {
     return true
   }
 
-  // @Post('sign-up')
-  // async verifyemail(@Body() data: SignUpDto) {
-  //   // Send mail sign-up
-  //   const user = await this.authService.localSignUp(data)
-  //   if (!!user) {
-  //     this.mailService.signUp(user)
-  //     return true
-  //   }
-  //   throw new BadRequestException('email existed')
-  // }
-
   @Post('verify-email')
   async verifyEmail(@Body() data: VerifyEmailDto) {
     const result = await this.authService.verifyEmail(data.code)

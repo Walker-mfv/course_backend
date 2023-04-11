@@ -203,7 +203,6 @@ export class AuthService {
     return { isNew: true, user }
   }
 
-  //
   async getAuthUserById(id: string) {
     return this.usersService.getAuthUserById(id)
   }
@@ -234,7 +233,6 @@ export class AuthService {
     const sub: IJwtUser = {
       _id: user._id + '',
       email: user.email,
-      // profile: user.profile,
       role: {
         _id: user.role._id + '',
         permissions: user.role.permissions,

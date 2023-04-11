@@ -135,8 +135,6 @@ export class UsersService extends BaseModel<User, UserDocument> {
   }
 
   async loginWithEmailAndPassword(email: string, password: string): Promise<User | null> {
-    // const populates = this.getPopulates({ lookupMode: 'detail' })
-
     const user = await this.model.findOneAndUpdate(
       {
         email,
@@ -354,7 +352,7 @@ export class UsersService extends BaseModel<User, UserDocument> {
     ]
     return pipeline
   }
-  //
+
   async getInstructors(query: ClientQueryDto): Promise<User[]> {
     const standardQuery = this.cvtStandardizedQuery(query)
     let pipeline = this.getInstructorsPipeline(query)
@@ -480,7 +478,7 @@ export class UsersService extends BaseModel<User, UserDocument> {
     const result = await this.model.aggregate(pipeline)
     return result
   }
-  //
+
   async countInstructors(query: ClientQueryDto): Promise<number> {
     const pipeline = this.getInstructorsPipeline(query)
     const result = await this.model.aggregate([
