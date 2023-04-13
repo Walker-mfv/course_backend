@@ -5,7 +5,7 @@ import serviceAccount from './service-account.json'
 
 initializeApp({
   credential: cert(serviceAccount as any),
-  storageBucket: 'onlinecourse-704d6.appspot.com',
+  storageBucket: 'online-course-a5fe5.appspot.com',
 })
 
 export const bucket = getStorage().bucket()

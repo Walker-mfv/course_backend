@@ -306,7 +306,6 @@ export abstract class BaseModel<E, D> {
     return Promise.all(promises)
   }
 
-  //
   async create(data: any): Promise<D> {
     const payload = this.attachHistoryData(data, 'create')
     return new this.model(payload).save() as any

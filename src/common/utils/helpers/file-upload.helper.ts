@@ -6,7 +6,6 @@ import { INVALID_FILE_URL } from './../constants/errors.constant'
 import { bucket } from './../firebase/firebase'
 import Helper from './helper.helper'
 import { TMediaType } from 'src/resources/files/schemas/file.schema'
-import { CreateFileDto } from 'src/resources/files/dto/create-file.dto'
 
 export default class FileUploadHelper {
   static async deleteByDownloadUrl(url: string) {
@@ -35,7 +34,7 @@ export default class FileUploadHelper {
   }
 
   private static createDownloadUrl(fileId: string) {
-    return `https://firebasestorage.googleapis.com/v0/b/onlinecourse-704d6.appspot.com/o/${fileId}?alt=media`
+    return `https://firebasestorage.googleapis.com/v0/b/online-course-a5fe5.appspot.com/o/${fileId}?alt=media`
   }
 
   private static async genThumbnail(
