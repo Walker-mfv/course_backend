@@ -7,9 +7,9 @@ import DateHelper from 'src/common/utils/helpers/date.helper'
 import HashHelper from 'src/common/utils/helpers/hash.helper'
 import Helper from 'src/common/utils/helpers/helper.helper'
 import { User } from 'src/resources/users/schemas/user.schema'
-import { Promotions } from './../../../resources/courses/dto/create-course.dto'
-import { Cart } from './../../../resources/users/schemas/user.schema'
-import { USD_FACTOR } from './../../utils/constants/app.constant'
+import { Promotions } from 'src/resources/courses/dto/create-course.dto'
+import { Cart } from 'src/resources/users/schemas/user.schema'
+import { USD_FACTOR } from 'src/common/utils/constants/app.constant'
 
 export interface IMomoConfig {
   redirectUrl: string
@@ -73,7 +73,6 @@ export interface IMomoPaymentExtraData {
 @Injectable()
 export class MomoService {
   static salePriceFactor = 1
-  //
   private prefix = 'https://test-payment.momo.vn'
   private config: IMomoConfig = {
     partnerCode: 'MOMONUKG20220413',
@@ -150,7 +149,6 @@ export class MomoService {
     sellPrice *= MomoService.salePriceFactor
     return sellPrice
   }
-  //
 
   private async getPaymentMethod(data: ICreatePaymentMethodData): Promise<IPaymentMethodResult> {
     const body = this.getCreatePaymentMethodBody(data)
@@ -183,7 +181,6 @@ export class MomoService {
   }
 
   private genSignature(data: ISignature) {
-    //
     const keys = Object.keys(data)
     const sortedKeys = keys.sort()
     const sortedKeysObject = {}
@@ -198,7 +195,7 @@ export class MomoService {
     const signature = HashHelper.genSha256Hash(message, this.config.secretKey)
     return signature
   }
-  //
+
   parsePaymentExtraData(info: any): IMomoPaymentExtraData {
     const data = Helper.decodeBase64(info.extraData)
     if (data) {

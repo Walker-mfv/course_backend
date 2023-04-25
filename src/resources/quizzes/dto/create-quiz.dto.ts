@@ -1,8 +1,7 @@
-import { HistoryTimestampProp } from './../../../common/shared/dtos/shared.dto'
+import { HistoryTimestampProp } from 'src/common/shared/dtos/shared.dto'
 import { ApiProperty } from '@nestjs/swagger'
 import { Type } from 'class-transformer'
-import { IsArray, IsBoolean, IsDefined, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator'
-import { HistoryProp } from 'src/common/shared/dtos/shared.dto'
+import { IsArray, IsDefined, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator'
 import { IsAnswerContent, IsOptionNumber, IsQuestionContent } from './quiz_vld'
 
 class AnswerOption {

@@ -4,7 +4,7 @@ import { ReviewsService } from '../../reviews/services/reviews.service'
 import { ChartDataOptionsDto } from '../../users/dto/chart-data-options.dto'
 import CourseFilterDto from '../../users/dto/course-filter.dto'
 import { TotalDataOptionsDto } from '../../users/dto/total-data-options.dto'
-import { TransactionsStatisticService } from './../../../features/statistic/services/transactions-statistic.service'
+import { TransactionsStatisticService } from 'src/features/statistic/services/transactions-statistic.service'
 
 @Controller('performances/overview')
 @ApiTags('performances/overview')

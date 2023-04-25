@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import mongoose from 'mongoose'
 import { File } from 'src/resources/files/schemas/file.schema'
-import { HistoryTimestampType } from './../../../common/shared/schemas/shared.schema'
+import { HistoryTimestampType } from 'src/common/shared/schemas/shared.schema'
 
 export type LectureDocument = Lecture & mongoose.Document
 

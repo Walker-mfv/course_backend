@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Patch, Req, UseGuards } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { ACCESS_TOKEN_KEY } from 'src/common/utils/constants/app.constant'
-import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard'
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard'
 import { UpdateLearnUnitDto } from '../../user-course/dto/update-learn-unit-dto'
 import { UserCourseService } from '../../user-course/user-course.service'
 import { UsersService } from '../users.service'

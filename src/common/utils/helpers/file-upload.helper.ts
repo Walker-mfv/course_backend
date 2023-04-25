@@ -1,4 +1,4 @@
-import { UpdateFileDto } from './../../../resources/files/dto/update-file.dto'
+import { UpdateFileDto } from 'src/resources/files/dto/update-file.dto'
 import { VIDEO_THUMBNAIL_DIR } from './../constants/firebase.constant'
 import ffmpeg from 'fluent-ffmpeg'
 import { TEMP_DIR } from '../constants/app.constant'

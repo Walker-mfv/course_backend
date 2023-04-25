@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import mongoose from 'mongoose'
-import { HistoryTimestampType } from './../../../common/shared/schemas/shared.schema'
+import { HistoryTimestampType } from 'src/common/shared/schemas/shared.schema'
 
 export type QuizDocument = Quiz & mongoose.Document
 

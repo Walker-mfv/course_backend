@@ -1,7 +1,7 @@
 import { Controller, Get, Param, Query } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { ClientQueryDto } from 'src/common/shared/dtos/client-query.dto'
-import { ACCESS_TOKEN_KEY } from '../../../common/utils/constants/app.constant'
+import { ACCESS_TOKEN_KEY } from 'src/common/utils/constants/app.constant'
 import { User } from '../schemas/user.schema'
 import { UserPaymentService } from './../services/user-payment.service'
 

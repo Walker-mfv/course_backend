@@ -3,7 +3,7 @@ import { TIME_ZONE } from 'src/common/utils/constants/app.constant'
 import Helper from 'src/common/utils/helpers/helper.helper'
 import { ChartDataOptionsDto } from 'src/resources/users/dto/chart-data-options.dto'
 import { TotalDataOptionsDto } from 'src/resources/users/dto/total-data-options.dto'
-import { TransactionsService } from './../../../resources/transactions/transactions.service'
+import { TransactionsService } from 'src/resources/transactions/transactions.service'
 
 @Injectable()
 export class TransactionsStatisticService {

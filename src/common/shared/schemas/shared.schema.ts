@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import mongoose from 'mongoose'
-import { User } from '../../../resources/users/schemas/user.schema'
+import { User } from 'src/resources/users/schemas/user.schema'
 
 const { Types } = mongoose.Schema
 

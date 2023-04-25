@@ -4,7 +4,7 @@ import { ApiTags } from '@nestjs/swagger'
 import { Response } from 'express'
 import TestCheckoutDto from '../dto/test-checkout.dto'
 import { OrdersPaymentService } from '../services/orders-payment.service'
-import { IMomoPaymentCourse, MomoService } from './../../../common/shared/services/momo.service'
+import { IMomoPaymentCourse, MomoService } from 'src/common/shared/services/momo.service'
 import { SystemNotificationsService } from './../../notifications/services/system-notifications.service'
 
 @ApiTags('orders-payment')

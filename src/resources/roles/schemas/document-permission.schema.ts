@@ -1,4 +1,4 @@
-import { TDocumentName, TDocumentType, TPermission } from './../../../common/utils/constants/role.constant'
+import { TDocumentName, TDocumentType, TPermission } from 'src/common/utils/constants/role.constant'
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import mongoose from 'mongoose'
 

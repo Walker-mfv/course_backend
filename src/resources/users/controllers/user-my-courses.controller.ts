@@ -1,7 +1,7 @@
 import { BadRequestException, Body, Controller, Get, Patch, Req, UseGuards } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { ACCESS_TOKEN_KEY } from 'src/common/utils/constants/app.constant'
-import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard'
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard'
 import { UserCourseService } from '../../user-course/user-course.service'
 import { ArchiveCoursesDto } from '../dto/archive-courses.dto'
 import { UsersService } from '../users.service'

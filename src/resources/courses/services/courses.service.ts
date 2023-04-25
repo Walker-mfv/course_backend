@@ -5,9 +5,9 @@ import { Model } from 'mongoose'
 import dummy_courses from 'src/common/dummy_data/dummy_courses'
 import { BaseModel } from 'src/common/shared/base-model'
 import Helper from 'src/common/utils/helpers/helper.helper'
-import { IEmbedOption } from '../../../common/shared/base-model'
+import { IEmbedOption } from 'src/common/shared/base-model'
 import { Course, CourseDocument } from '../schemas/course.schema'
-import { IMomoPaymentExtraData } from './../../../common/shared/services/momo.service'
+import { IMomoPaymentExtraData } from 'src/common/shared/services/momo.service'
 
 @Injectable()
 export class CoursesService extends BaseModel<Course, CourseDocument> {

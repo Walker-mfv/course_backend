@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { Type } from 'class-transformer'
 import { IsMongoId, ValidateIf, ValidateNested } from 'class-validator'
-import { HistoryTimestampProp } from '../../../common/shared/dtos/shared.dto'
+import { HistoryTimestampProp } from 'src/common/shared/dtos/shared.dto'
 import { IsCommentContent } from './comment.vld'
 // import { ReactionProp } from 'src/common/shared/dtos/shared.dto';
 

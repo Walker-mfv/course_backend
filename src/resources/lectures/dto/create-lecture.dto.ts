@@ -1,9 +1,9 @@
-import { CreateFileDto } from './../../files/dto/create-file.dto'
+import { CreateFileDto } from 'src/resources/files/dto/create-file.dto'
 import { ApiProperty } from '@nestjs/swagger'
 import { Type } from 'class-transformer'
 import { IsArray, IsMongoId, IsOptional, IsString, ValidateNested } from 'class-validator'
 import { File } from 'src/resources/files/schemas/file.schema'
-import { HistoryTimestampProp } from './../../../common/shared/dtos/shared.dto'
+import { HistoryTimestampProp } from 'src/common/shared/dtos/shared.dto'
 import { IsLectureTitle } from './lecture.vld'
 
 export class CreateLectureDto {

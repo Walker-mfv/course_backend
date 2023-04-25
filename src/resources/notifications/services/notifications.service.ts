@@ -4,7 +4,7 @@ import { Model } from 'mongoose'
 import dummy_notifications from 'src/common/dummy_data/dummy_notifications'
 import { BaseModel } from 'src/common/shared/base-model'
 import { Notification, NotificationDocument } from '../schemas/notification.schema'
-import { ClientQueryDto } from './../../../common/shared/dtos/client-query.dto'
+import { ClientQueryDto } from 'src/common/shared/dtos/client-query.dto'
 
 @Injectable()
 export class NotificationsService extends BaseModel<Notification, NotificationDocument> {
