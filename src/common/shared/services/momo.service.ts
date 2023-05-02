@@ -124,6 +124,7 @@ export class MomoService {
     const info = `${user.profile.firstName} ${user.profile.lastName} checkout: ${qty} Course`
     return info
   }
+
   private getAmount(cart: Cart) {
     let amount = cart.courses.reduce((prev, current) => {
       return prev + this.getMomoSellPrice(current.basicInfo.currency, current.basicInfo.price, current.promotions)

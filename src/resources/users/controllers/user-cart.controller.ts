@@ -57,7 +57,6 @@ export class UserCartController {
     return url
   }
 
-  //
   @Get()
   cart(@Req() req) {
     return this.usersService.fetchCart(req.user._id)

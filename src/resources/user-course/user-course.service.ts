@@ -78,7 +78,7 @@ export class UserCourseService extends BaseModel<UserCourse, UserCourseDocument>
     }
     return null
   }
-  //
+
   async fetchItem(userId: string, courseId: string): Promise<UserCourseDocument> {
     const populates = this.getPopulates({ lookupMode: 'detail' })
     const item = await this.userCourseModel
@@ -88,7 +88,7 @@ export class UserCourseService extends BaseModel<UserCourse, UserCourseDocument>
       .populate(populates)
     return item
   }
-  //
+
   async fetchLearningCourses(userId: string): Promise<UserCourseDocument[]> {
     const items = await this.model
       .find({
@@ -106,7 +106,7 @@ export class UserCourseService extends BaseModel<UserCourse, UserCourseDocument>
       })
     return items
   }
-  //
+
   async fetchArchivedCourses(userId: string): Promise<UserCourseDocument[]> {
     const items = await this.model
       .find({
@@ -124,7 +124,7 @@ export class UserCourseService extends BaseModel<UserCourse, UserCourseDocument>
       })
     return items
   }
-  //
+
   async fetchLearningCourseIds(userId: string): Promise<string[]> {
     const items = await this.model.find(
       {
@@ -136,7 +136,7 @@ export class UserCourseService extends BaseModel<UserCourse, UserCourseDocument>
     )
     return items.map((item) => item.course as unknown as string)
   }
-  //
+
   archiveCourses(userId: string, data: ArchiveCoursesDto) {
     const updateData = Helper.cvtDotObj({
       archived: {
@@ -155,7 +155,7 @@ export class UserCourseService extends BaseModel<UserCourse, UserCourseDocument>
       updateData
     )
   }
-  //
+
   unarchiveCourses(userId: string, data: ArchiveCoursesDto) {
     const updateData = Helper.cvtDotObj({
       archived: {
@@ -178,7 +178,7 @@ export class UserCourseService extends BaseModel<UserCourse, UserCourseDocument>
       }
     )
   }
-  //
+
   async completedUnit(id: string, unitId: string) {
     const item = await this.userCourseModel.findById(id).populate({ path: 'course' })
     if (item) {
@@ -201,7 +201,7 @@ export class UserCourseService extends BaseModel<UserCourse, UserCourseDocument>
       }
     }
   }
-  //
+
   async uncompletedUnit(id: string, unitId: string) {
     const item = await this.userCourseModel.findById(id).populate({ path: 'course' })
     if (item) {
@@ -224,7 +224,7 @@ export class UserCourseService extends BaseModel<UserCourse, UserCourseDocument>
       }
     }
   }
-  //
+
   private calculateProgress(item: UserCourseDocument) {
     const nCompletedUnit = item.learnDetail.learnUnits.reduce((prev, current) => {
       return prev + (current.isCompleted ? 1 : 0)
@@ -235,7 +235,7 @@ export class UserCourseService extends BaseModel<UserCourse, UserCourseDocument>
     const progress = nCompletedUnit / nUnit
     return progress
   }
-  //
+
   async createUserCourses(userId: string, courses: IMomoPaymentCourse[], date?: Date) {
     const userCourses = await Promise.all(
       courses.map((course) => {
@@ -263,7 +263,6 @@ export class UserCourseService extends BaseModel<UserCourse, UserCourseDocument>
     })
   }
 
-  //
   async fetchLearnUnit(userCourseId: string, unitId: string) {
     const result = await this.model
       .findOne(
@@ -281,7 +280,7 @@ export class UserCourseService extends BaseModel<UserCourse, UserCourseDocument>
     const doc = result ? result.learnDetail.learnUnits[0] : result
     return doc
   }
-  //
+
   async updateLearnUnit(userCourseId: string, unitId: string, data: UpdateLearnUnitDto) {
     // prepare data
     const updateDotObj = Helper.cvtDotObj({
@@ -319,12 +318,12 @@ export class UserCourseService extends BaseModel<UserCourse, UserCourseDocument>
     const item = await this.fetchLearnUnit(userCourseId, unitId)
     return item
   }
-  //
+
   private getStudentsStandardizeQuery(userId: string, query: ClientQueryDto) {
     const standardQuery = super.cvtStandardizedQuery(query)
     return standardQuery
   }
-  //
+
   async fetchStudents(userId: string, query: ClientQueryDto) {
     const standardQuery = this.getStudentsStandardizeQuery(userId, query)
     const result = await this.model.aggregate([
@@ -400,7 +399,7 @@ export class UserCourseService extends BaseModel<UserCourse, UserCourseDocument>
     ])
     return result
   }
-  //
+
   async countStudents(userId: string, query: ClientQueryDto) {
     const standardQuery = this.getStudentsStandardizeQuery(userId, query)
     const result = await this.model
