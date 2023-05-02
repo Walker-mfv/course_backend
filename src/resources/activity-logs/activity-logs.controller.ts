@@ -23,7 +23,7 @@ import ControllerHelper from 'src/common/utils/helpers/ControllerHelper'
 import { CheckPolicies, PoliciesGuard } from 'src/guards/policies.guard'
 import { SystemNotificationsService } from '../notifications/services/system-notifications.service'
 import { UsersService } from '../users/users.service'
-import { MailService } from './../../mail/mail.service'
+import { MailService } from 'src/mail/mail.service'
 import { ActivityLogsService } from './activity-logs.service'
 import { HandleActivityDto } from './dto/handle-activity.dto'
 import { ActivityLog, ActivityLogDocument } from './schemas/activity-logs.schema'
@@ -48,7 +48,7 @@ export class ActivityLogsController extends BaseController<ActivityLog, Activity
   protected async fetchAll(@Query() query: ClientQueryDto): Promise<ActivityLog[]> {
     return super.findAll(query)
   }
-  //
+
   @Get('count')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)
@@ -57,7 +57,7 @@ export class ActivityLogsController extends BaseController<ActivityLog, Activity
   async count(@Query() query: ClientQueryDto): Promise<number> {
     return super.count(query)
   }
-  //
+
   @Get(':id')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)
@@ -65,7 +65,7 @@ export class ActivityLogsController extends BaseController<ActivityLog, Activity
   async fetchById(@Param('id') id: string): Promise<ActivityLog> {
     return super.findById(id)
   }
-  //
+
   @Post('handle-activity')
   async handleActivity(@Request() req, @Body() dto: HandleActivityDto) {
     const userAgent = req.headers['user-agent']
@@ -124,7 +124,7 @@ export class ActivityLogsController extends BaseController<ActivityLog, Activity
   async deleteRecords(@Query() ids: IdsDto): Promise<ActivityLog[]> {
     return super.deleteMany(ids)
   }
-  //
+
   @Delete(':id')
   @UseGuards(JwtAuthGuard, PoliciesGuard)
   @ApiBearerAuth(ACCESS_TOKEN_KEY)

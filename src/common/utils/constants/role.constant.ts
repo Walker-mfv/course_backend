@@ -35,7 +35,6 @@ export type TDocumentName =
   | 'Payment'
   | 'Activity Log'
 
-//
 export const PERMISSION: Record<TPermission, string> = {
   create: 'create',
   read: 'read',

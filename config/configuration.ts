@@ -12,9 +12,6 @@ export default () => ({
   },
   jwt: {
     secretToken: process.env.JWT_SECRET_TOKEN,
-    refreshToken: process.env.JWT_REFRESH_TOKEN,
-    accessToken: process.env.JWT_ACCESS_TOKEN,
-    expiresIn: process.env.JWT_EXPIRES_IN,
   },
   google: {
     clientId: process.env.GOOGLE_CLIENT_ID,

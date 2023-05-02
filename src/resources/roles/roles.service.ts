@@ -4,7 +4,6 @@ import { Model } from 'mongoose'
 import dummy_document_permissions from 'src/common/dummy_data/dummy_document_permissions'
 import dummy_roles from 'src/common/dummy_data/dummy_roles'
 import { BaseModel } from 'src/common/shared/base-model'
-import IConflictData from 'src/common/shared/interfaces/conflict-data.interface'
 import Helper from 'src/common/utils/helpers/helper.helper'
 import { ISelectItem } from './../../common/shared/interfaces/select-item.interface'
 import { AddPermissionDto } from './dto/add-permission.dto'
@@ -67,7 +66,7 @@ export class RolesService extends BaseModel<Role, RoleDocument> {
     await this.documentPermissionModel.insertMany(dummy_document_permissions)
     return this.documentPermissionModel.find()
   }
-  //
+
   async fetchRolePermissions(roleId: string, documentPermissionId?: string): Promise<Permission[] | undefined> {
     let query
     if (!!documentPermissionId) {
@@ -105,6 +104,7 @@ export class RolesService extends BaseModel<Role, RoleDocument> {
     })
     return !!item
   }
+
   addPermission(roleId: string, data: AddPermissionDto) {
     return this.roleModel.updateOne(
       { _id: roleId },
@@ -117,6 +117,7 @@ export class RolesService extends BaseModel<Role, RoleDocument> {
       }
     )
   }
+
   updatePermission(roleId: string, documentPermissionId: string, data: UpdatePermissionDto) {
     const updateData = Helper.cvtDotObj({
       permissions: {

@@ -31,6 +31,7 @@ export class RolesController extends BaseController<Role, RoleDocument> {
   constructor(private readonly rolesService: RolesService) {
     super(rolesService)
   }
+
   // FETCHES
   @Get()
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
@@ -39,6 +40,7 @@ export class RolesController extends BaseController<Role, RoleDocument> {
   protected async fetchAll(@Query() query: ClientQueryDto): Promise<Role[]> {
     return super.findAll(query)
   }
+
   @Get('validate-deletion/:id')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)
@@ -50,12 +52,12 @@ export class RolesController extends BaseController<Role, RoleDocument> {
     }
     return true
   }
-  //
+
   @Get('select-data')
   async fetchSelectData(): Promise<ISelectItem[]> {
     return this.rolesService.getSelectData()
   }
-  //
+
   @Get('count')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)
@@ -64,7 +66,7 @@ export class RolesController extends BaseController<Role, RoleDocument> {
   async count(@Query() query: ClientQueryDto): Promise<number> {
     return super.count(query)
   }
-  //
+
   @Get(':id')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)
@@ -72,6 +74,7 @@ export class RolesController extends BaseController<Role, RoleDocument> {
   async fetchById(@Param('id') id: string): Promise<Role> {
     return super.findById(id)
   }
+
   // CREATE
   @Post()
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
@@ -80,6 +83,7 @@ export class RolesController extends BaseController<Role, RoleDocument> {
   create(@Body() createRoleDto: CreateRoleDto) {
     return this.rolesService.create(createRoleDto)
   }
+
   // UPDATE
   @Patch(':id')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
@@ -88,6 +92,7 @@ export class RolesController extends BaseController<Role, RoleDocument> {
   update(@Param('id') id: string, @Body() updateRoleDto: UpdateRoleDto) {
     return this.rolesService.updateById(id, updateRoleDto)
   }
+
   // DELETE
   // @Delete('records')
   // @UseGuards(JwtAuthGuard, PoliciesGuard)

@@ -8,7 +8,7 @@ export type RoleDocument = Role & mongoose.Document
 @Schema()
 export class Permission {
   _id: mongoose.Schema.Types.ObjectId
-  @Prop({ type: mongoose.Types.ObjectId, ref: DocumentPermission.name, unique: true })
+  @Prop({ type: mongoose.Types.ObjectId, ref: DocumentPermission.name })
   documentPermission: DocumentPermission
   @Prop()
   enabledPermissions: TPermission[]

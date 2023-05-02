@@ -38,7 +38,7 @@ import { ActivityLogsModule } from './resources/activity-logs/activity-logs.modu
       load: [configuration],
     }),
     MongooseModule.forRoot(
-      `mongodb+srv://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@onlinecourse.5d9dy.mongodb.net/${process.env.DATABASE_NAME}?retryWrites=true&w=majority`
+      `mongodb+srv://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@cluster0.3pj1ord.mongodb.net/${process.env.DATABASE_NAME}?retryWrites=true&w=majority`
     ),
     CoursesModule,
     UsersModule,
