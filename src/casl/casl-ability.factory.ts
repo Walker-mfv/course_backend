@@ -10,9 +10,7 @@ export type AppAbility = Ability<[TPermission, Subjects]>
 @Injectable()
 export class CaslAbilityFactory {
   createForUser(user: User) {
-    const { can, cannot, build } = new AbilityBuilder<Ability<[TPermission, Subjects]>>(
-      Ability as AbilityClass<AppAbility>
-    )
+    const { can, build } = new AbilityBuilder<Ability<[TPermission, Subjects]>>(Ability as AbilityClass<AppAbility>)
 
     // SET PERMISSIONS
     const permissionObj = {}

@@ -28,10 +28,12 @@ export class LecturesController extends BaseController<Lecture, LectureDocument>
   addResource(@Param('id') id: string, @Body() data: CreateFileDto) {
     return this.lecturesService.addResource(id, data)
   }
+
   @Patch('add-resource-id/:id/:resourceId')
   addResourceId(@Param('id') id: string, @Param('resourceId') resourceId) {
     return this.lecturesService.addResourceId(id, resourceId)
   }
+
   @Patch('remove-resource/:id/:resourceId')
   removeResourceId(@Param('id') id: string, @Param('resourceId') resourceId) {
     return this.lecturesService.removeResource(id, resourceId)

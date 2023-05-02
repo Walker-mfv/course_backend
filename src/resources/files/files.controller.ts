@@ -49,7 +49,7 @@ export class FilesController extends BaseController<File, FileDocument> {
   countFilesByUserId(@Req() req, @Query() query: FileQueryDto) {
     return this.filesService.countUserFilesById(req.user._id, query)
   }
-  //
+
   @Get('parse-video/:url')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)
@@ -57,7 +57,7 @@ export class FilesController extends BaseController<File, FileDocument> {
   parseVideo(@Param('url') url: string) {
     return this.filesService.parseVideo(url)
   }
-  //
+
   @Get()
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)
@@ -65,7 +65,7 @@ export class FilesController extends BaseController<File, FileDocument> {
   protected async fetchAll(@Query() query: ClientQueryDto): Promise<File[]> {
     return super.findAll(query)
   }
-  //
+
   @Get('count')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)
@@ -74,7 +74,7 @@ export class FilesController extends BaseController<File, FileDocument> {
   async count(@Query() query: ClientQueryDto): Promise<number> {
     return super.count(query)
   }
-  //
+
   @Get(':id')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)
@@ -82,6 +82,7 @@ export class FilesController extends BaseController<File, FileDocument> {
   async fetchById(@Param('id') id: string): Promise<File> {
     return super.findById(id)
   }
+
   // CREATE
   @Post()
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
@@ -90,6 +91,7 @@ export class FilesController extends BaseController<File, FileDocument> {
   create(@Body() data: CreateFileDto) {
     return this.filesService.create(data)
   }
+
   // UPDATE
   @Patch(':id')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
@@ -98,6 +100,7 @@ export class FilesController extends BaseController<File, FileDocument> {
   update(@Param('id') id: string, @Body() data: UpdateFileDto) {
     return this.filesService.updateById(id, data)
   }
+
   // DELETE
   @Delete('records')
   @UseGuards(JwtAuthGuard, PoliciesGuard)
@@ -106,7 +109,7 @@ export class FilesController extends BaseController<File, FileDocument> {
   async deleteRecords(@Query() ids: IdsDto): Promise<File[]> {
     return super.deleteMany(ids)
   }
-  //
+
   @Delete(':id')
   @UseGuards(JwtAuthGuard, PoliciesGuard)
   @ApiBearerAuth(ACCESS_TOKEN_KEY)

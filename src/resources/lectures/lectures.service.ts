@@ -33,7 +33,7 @@ export class LecturesService extends BaseModel<Lecture, LectureDocument> {
   }
 
   async addResource(id: string, data: CreateFileDto): Promise<FileDocument> {
-    const item = await this.lectureModel.findById(id)
+    const item = (await this.lectureModel.findById(id)) as any
     const mediaType = FileUploadHelper.getMediaType(data.type)
     if (mediaType) {
       let file: FileDocument
@@ -47,7 +47,7 @@ export class LecturesService extends BaseModel<Lecture, LectureDocument> {
           break
       }
       if (file) {
-        ;(item.resources as File[]).push(file)
+        item.resources.push(file)
         await item.save()
         return file
       }

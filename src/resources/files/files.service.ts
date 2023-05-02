@@ -27,6 +27,7 @@ export class FilesService extends BaseModel<File, FileDocument> {
       deletePros.push(item.delete())
     })
     await Promise.all(deletePros)
+    await this.model.insertMany(this.dummyData)
     return this.model.find()
   }
 
