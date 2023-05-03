@@ -143,7 +143,7 @@ export class CourseHistory extends HistoryType {
   publishedAt?: string
 }
 
-export type TCourseStatus = 'draft' | 'pending' | 'active' | 'rejected'
+export type TCourseStatus = 'draft' | 'pending' | 'active' | 'rejected' | 'inactive'
 @Schema()
 export class Course {
   _id: mongoose.Schema.Types.ObjectId

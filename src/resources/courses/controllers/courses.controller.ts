@@ -144,6 +144,7 @@ export class CoursesController extends BaseController<Course, CourseDocument> {
   update(@Param('id') id: string, @Body() data: UpdateCourseDto) {
     return this.coursesService.updateById(id, data)
   }
+
   // DELETE
   // @Delete('records')
   // @UseGuards(JwtAuthGuard, PoliciesGuard)
