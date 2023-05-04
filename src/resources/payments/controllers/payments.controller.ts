@@ -43,7 +43,7 @@ export class PaymentsController extends BaseController<Payment, PaymentDocument>
   protected async fetchAll(@Query() query: ClientQueryDto): Promise<Payment[]> {
     return super.findAll(query)
   }
-  //
+
   @Get('count')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)
@@ -52,7 +52,7 @@ export class PaymentsController extends BaseController<Payment, PaymentDocument>
   async count(@Query() query: ClientQueryDto): Promise<number> {
     return super.count(query)
   }
-  //
+
   @Get(':id')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)

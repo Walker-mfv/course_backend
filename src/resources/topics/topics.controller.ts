@@ -38,7 +38,7 @@ export class TopicsController extends BaseController<Topic, TopicDocument> {
   protected async fetchAll(@Query() query: ClientQueryDto): Promise<Topic[]> {
     return super.findAll(query)
   }
-  //
+
   @Get('count')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)
@@ -47,7 +47,7 @@ export class TopicsController extends BaseController<Topic, TopicDocument> {
   async count(@Query() query: ClientQueryDto): Promise<number> {
     return super.count(query)
   }
-  //
+
   @Get(':id')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)
@@ -79,7 +79,7 @@ export class TopicsController extends BaseController<Topic, TopicDocument> {
   async deleteRecords(@Query() ids: IdsDto): Promise<Topic[]> {
     return super.deleteMany(ids)
   }
-  //
+
   @Delete(':id')
   @UseGuards(JwtAuthGuard, PoliciesGuard)
   @ApiBearerAuth(ACCESS_TOKEN_KEY)

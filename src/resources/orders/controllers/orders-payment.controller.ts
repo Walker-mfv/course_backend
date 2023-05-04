@@ -29,7 +29,7 @@ export class OrdersPaymentController {
     this.sendNewEnrollmentNotifications(extraData.userId, extraData.courses)
     return this.redirectToEnrolledCourses(res)
   }
-  //
+
   @Get('payment-notify')
   async paymentNotify(@Query() query, @Res() res: Response) {
     try {

@@ -24,7 +24,7 @@ export class OrdersController extends BaseController<Order, OrderDocument> {
   protected async fetchAll(@Query() query: ClientQueryDto): Promise<Order[]> {
     return super.findAll(query)
   }
-  //
+
   @Get('count')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)
@@ -33,7 +33,7 @@ export class OrdersController extends BaseController<Order, OrderDocument> {
   async count(@Query() query: ClientQueryDto): Promise<number> {
     return super.count(query)
   }
-  //
+
   @Get(':id')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)

@@ -46,5 +46,4 @@ export class PerformancesController {
   protected async countInstructors(@Query() query: ClientQueryDto): Promise<number> {
     return this.usersService.countInstructors(query)
   }
-  //
 }

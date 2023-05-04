@@ -23,7 +23,7 @@ export class CoursesClientController {
   countLatestItems() {
     return this.clientCoursesService.countLatestItems()
   }
-  //
+
   @Get('/most-popular-items')
   getMostPopularItems(@Query() query: FetchOptionsDto) {
     return this.clientCoursesService.getMostPopularItems(query)

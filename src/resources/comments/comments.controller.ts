@@ -69,7 +69,7 @@ export class CommentsController extends BaseController<Comment, CommentDocument>
   protected async fetchAll(@Query() query: ClientQueryDto): Promise<Comment[]> {
     return super.findAll(query)
   }
-  //
+
   @Get('count')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)
@@ -78,7 +78,7 @@ export class CommentsController extends BaseController<Comment, CommentDocument>
   async count(@Query() query: ClientQueryDto): Promise<number> {
     return super.count(query)
   }
-  //
+
   @Get(':id')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard)

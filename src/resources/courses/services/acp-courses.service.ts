@@ -14,7 +14,7 @@ export default class AcpCoursesService extends CoursesService {
     const standardQuery = this.cvtStandardizedQuery(query)
     return standardQuery
   }
-  //
+
   async fetchActiveCourses(query: ClientQueryDto): Promise<Course[]> {
     const standardQuery = this.getActiveCoursesQuery(query)
     const result = await this.model.aggregate([
@@ -105,7 +105,7 @@ export default class AcpCoursesService extends CoursesService {
     ])
     return result
   }
-  //
+
   async countActiveCourses(query: ClientQueryDto): Promise<number> {
     const standardQuery = this.getActiveCoursesQuery(query)
     const result = await this.model.aggregate([

@@ -18,7 +18,7 @@ export class CourseReviewsService extends ReviewsService {
   ) {
     super(reviewModel)
   }
-  //
+
   private getCourseReviewsPipelines(courseId: string, query: ClientQueryDto) {
     if (query.rating_filter) {
       query.rating_filter = Number.parseInt(query.rating_filter)
@@ -47,17 +47,17 @@ export class CourseReviewsService extends ReviewsService {
       ...this.respondedUserLookup,
     ]
   }
-  //
+
   fetchCourseReviews(courseId: string, query: ClientQueryDto) {
     const pipeline = this.getCourseReviewsPipelines(courseId, query)
     return this.reviewModel.aggregate(pipeline)
   }
-  //
+
   async countCourseReviews(courseId: string, query: ClientQueryDto) {
     const standardQuery = super.cvtStandardizedQuery(query)
     return this.model.count({ ...standardQuery.filter, course: courseId })
   }
-  //
+
   private getInstructorCourseReviewsPipelines(userId: string, query: ClientQueryDto) {
     const standardQuery = super.cvtStandardizedQuery(query)
     const courseId = query['course._id_filter']
@@ -135,13 +135,13 @@ export class CourseReviewsService extends ReviewsService {
       all: allPipelines,
     }
   }
-  //
+
   async fetchInstructorCourseReviews(userId: string, query: ClientQueryDto) {
     const { all } = this.getInstructorCourseReviewsPipelines(userId, query)
     const result = await this.model.aggregate(all)
     return result
   }
-  //
+
   async countInstructorCourseReviews(userId: string, query: ClientQueryDto) {
     const { nonePagination } = this.getInstructorCourseReviewsPipelines(userId, query)
     const result = await this.model.aggregate([

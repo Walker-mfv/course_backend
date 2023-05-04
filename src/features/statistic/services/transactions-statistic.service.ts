@@ -45,7 +45,7 @@ export class TransactionsStatisticService {
     const result = await this.transactionsService.model.aggregate(pipeline)
     return result
   }
-  //
+
   async fetchEnrollmentsStats(data: ChartDataOptionsDto, instructorId?: string) {
     const pipeline = [
       ...this.getInstructorStatsPreprocessPipeline(data, undefined, instructorId),
@@ -79,7 +79,6 @@ export class TransactionsStatisticService {
     const commissionRate = !!instructorId
       ? '$moneyConfiguration.instructorCommission'
       : { $subtract: [1, '$moneyConfiguration.instructorCommission'] }
-    //
     const pipeline = [
       ...this.getInstructorTotalPreprocessPipeline(data, instructorId),
       // convert date string to date
@@ -104,7 +103,6 @@ export class TransactionsStatisticService {
     return result[0]?.amount || 0
   }
   async fetchTotalEnrollments(data: TotalDataOptionsDto, instructorId?: string) {
-    //
     const pipeline = [
       ...this.getInstructorTotalPreprocessPipeline(data, instructorId),
       // convert date string to date
@@ -115,7 +113,7 @@ export class TransactionsStatisticService {
     const result = await this.transactionsService.model.aggregate(pipeline)
     return this.transactionsService.handleCountResult(result)
   }
-  //
+
   private getInstructorStatsPreprocessPipeline(data: ChartDataOptionsDto, project?: any, instructorId?: string): any {
     const minDate = new Date()
     let timeFormat
@@ -136,7 +134,7 @@ export class TransactionsStatisticService {
         // timeFormat = '%m';
         break
     }
-    //
+
     const matchPipeline = [
       {
         $match: {
@@ -178,9 +176,8 @@ export class TransactionsStatisticService {
     ]
     return pipeline
   }
-  //
+
   private getInstructorTotalPreprocessPipeline(data: TotalDataOptionsDto, instructorId?: string) {
-    //
     let minDate
     switch (data.range) {
       case 'M':
@@ -192,7 +189,7 @@ export class TransactionsStatisticService {
         minDate.setMilliseconds(0)
         break
     }
-    //
+
     const matchPipeline = [
       {
         $match: {},

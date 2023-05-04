@@ -162,7 +162,6 @@ export class CoursesController extends BaseController<Course, CourseDocument> {
   // async deleteRecords(@Query() ids: IdsDto): Promise<Course[]> {
   //     return super.deleteMany(ids);
   // }
-  //
   @Delete(':id')
   @UseGuards(JwtAuthGuard, PoliciesGuard)
   @ApiBearerAuth(ACCESS_TOKEN_KEY)

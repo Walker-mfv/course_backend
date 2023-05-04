@@ -59,7 +59,7 @@ export class CategoriesController extends BaseController<Category, CategoryDocum
   protected async fetchAll(@Query() query: ClientQueryDto): Promise<Category[]> {
     return super.findAll(query)
   }
-  //
+
   @Get('validate-deletion/:id')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)
@@ -71,12 +71,12 @@ export class CategoriesController extends BaseController<Category, CategoryDocum
     }
     return true
   }
-  //
+
   @Get('select-data')
   async getSelectData(@Query() query: ClientQueryDto): Promise<ISelectItem[]> {
     return this.categoriesService.getSelectData(query)
   }
-  //
+
   @Get('count')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)
@@ -85,7 +85,7 @@ export class CategoriesController extends BaseController<Category, CategoryDocum
   async count(@Query() query: ClientQueryDto): Promise<number> {
     return super.count(query)
   }
-  //
+
   @Get(':id')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)
@@ -117,7 +117,6 @@ export class CategoriesController extends BaseController<Category, CategoryDocum
   // async deleteRecords(@Query() ids: IdsDto): Promise<Category[]> {
   //     return super.deleteMany(ids);
   // }
-  //
   @Delete(':id')
   @UseGuards(JwtAuthGuard, PoliciesGuard)
   @ApiBearerAuth(ACCESS_TOKEN_KEY)

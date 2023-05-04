@@ -101,7 +101,6 @@ export class RolesController extends BaseController<Role, RoleDocument> {
   // async deleteRecords(@Query() ids: IdsDto): Promise<Role[]> {
   //     return super.deleteMany(ids);
   // }
-  //
   @Delete(':id')
   @UseGuards(JwtAuthGuard, PoliciesGuard)
   @ApiBearerAuth(ACCESS_TOKEN_KEY)

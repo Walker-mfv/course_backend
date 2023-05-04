@@ -11,7 +11,7 @@ import { UpdateConfigurationDto } from './dto/update-configuration.dto'
 @ApiTags('configuration')
 export class ConfigurationController {
   constructor(private readonly configurationService: ConfigurationService) {}
-  //
+
   // @UseGuards(JwtAuthGuard, PoliciesGuard)
   // @CheckPolicies((ability: AppAbility) => ability.can('read', 'Setting'))
   @Get()
@@ -19,7 +19,7 @@ export class ConfigurationController {
   fetch() {
     return this.configurationService.fetch()
   }
-  //
+
   // @UseGuards(JwtAuthGuard, PoliciesGuard)
   // @CheckPolicies((ability: AppAbility) => ability.can('read', 'Setting'))
   @Get('price-tiers')
@@ -30,7 +30,7 @@ export class ConfigurationController {
       return result.course.priceTiers
     }
   }
-  //
+
   @Patch()
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)

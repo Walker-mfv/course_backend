@@ -52,7 +52,7 @@ export class ReviewsController extends BaseController<Review, ReviewDocument> {
   protected async fetchAll(@Query() query: ClientQueryDto): Promise<Review[]> {
     return super.findAll(query)
   }
-  //
+
   @Get('count')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard)
@@ -60,7 +60,7 @@ export class ReviewsController extends BaseController<Review, ReviewDocument> {
   async count(@Query() query: ClientQueryDto): Promise<number> {
     return super.count(query)
   }
-  //
+
   @Get(':id')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard)

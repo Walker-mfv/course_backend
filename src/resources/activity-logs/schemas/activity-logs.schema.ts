@@ -38,7 +38,6 @@ class Device {
   model: string
 }
 
-//
 @Schema({ _id: false })
 export class Geolocation {
   @Prop({ required: true })
@@ -60,7 +59,6 @@ export class DeviceInfo {
   ip: string
   @Prop({ required: true })
   geolocationInfo: GeolocationInfo
-  //
   @Prop()
   client: Client
   @Prop()

@@ -12,9 +12,7 @@ import { IMomoPaymentExtraData } from 'src/common/shared/services/momo.service'
 @Injectable()
 export class CoursesService extends BaseModel<Course, CourseDocument> {
   private dummyCoursesDirPath = 'src/common/dummy_data/courses'
-  //
   protected searchFields: string[] = ['basicInfo.title']
-  //
   protected basicEmbedOptions: IEmbedOption[] = [
     {
       path: 'history.createdBy',

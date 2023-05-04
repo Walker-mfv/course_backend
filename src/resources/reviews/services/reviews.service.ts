@@ -17,9 +17,7 @@ export class ReviewsService extends BaseModel<Review, ReviewDocument> {
       collection: 'users',
     },
   ]
-  //
   protected displayFields: string[] = ['_id', 'content', 'user', 'timestamps', 'rating']
-  //
   get dummyData(): any[] {
     return dummy_reviews
   }
@@ -130,7 +128,6 @@ export class ReviewsService extends BaseModel<Review, ReviewDocument> {
   }
 
   protected getAvgPreprocessPipeline(data: TotalDataOptionsDto, instructorId?: string) {
-    //
     let minDate
     switch (data.range) {
       case 'M':
@@ -142,7 +139,6 @@ export class ReviewsService extends BaseModel<Review, ReviewDocument> {
         minDate.setMilliseconds(0)
         break
     }
-    //
     const matchPipeline = [
       {
         $match: {},

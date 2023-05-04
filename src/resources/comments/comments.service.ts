@@ -11,14 +11,14 @@ import { Comment, CommentDocument } from './schemas/comment.schema'
 @Injectable()
 export class CommentsService extends BaseModel<Comment, CommentDocument> {
   protected displayFields: string[] = ['_id', 'content', 'user', 'timestamps']
-  //
+
   protected basicEmbedOptions: IEmbedOption[] = [
     {
       path: 'user',
       collection: 'users',
     },
   ]
-  //
+
   get dummyData(): any[] {
     return dummy_comments
   }

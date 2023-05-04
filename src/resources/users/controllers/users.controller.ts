@@ -40,7 +40,7 @@ export class UsersController extends BaseController<User, UserDocument> {
   protected async fetchAll(@Query() query: ClientQueryDto): Promise<User[]> {
     return super.findAll(query)
   }
-  //
+
   @Get('count')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)
@@ -49,7 +49,7 @@ export class UsersController extends BaseController<User, UserDocument> {
   async count(@Query() query: ClientQueryDto): Promise<number> {
     return super.count(query)
   }
-  //
+
   @Get(':id')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)
@@ -110,7 +110,7 @@ export class UsersController extends BaseController<User, UserDocument> {
   async deleteRecords(@Query() ids: IdsDto): Promise<User[]> {
     return super.deleteMany(ids)
   }
-  //
+
   @Delete(':id')
   @UseGuards(JwtAuthGuard, PoliciesGuard)
   @ApiBearerAuth(ACCESS_TOKEN_KEY)

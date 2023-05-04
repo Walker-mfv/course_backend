@@ -23,7 +23,6 @@ export class UserLearningController {
     return this.userCourseService.uncompletedUnit(userCourseId, unitId)
   }
 
-  //
   @Get(':userCourseId/learn-unit/:unitId')
   fetchLearnUnit(@Param('userCourseId') userCourseId: string, @Param('unitId') learnUnitId: string) {
     return this.userCourseService.fetchLearnUnit(userCourseId, learnUnitId)
@@ -37,8 +36,6 @@ export class UserLearningController {
   ) {
     return this.userCourseService.updateLearnUnit(userCourseId, unitId, data)
   }
-
-  //
 
   @Get('fetch-by-slug/:courseSlug')
   async fetchLearnCourseBySlug(@Req() req, @Param('courseSlug') courseSlug: string) {
