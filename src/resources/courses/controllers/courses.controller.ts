@@ -120,6 +120,15 @@ export class CoursesController extends BaseController<Course, CourseDocument> {
     return ControllerHelper.handleUpdateResult(result)
   }
 
+  @Patch('convert-course-to-inactive/:courseId')
+  @ApiBearerAuth(ACCESS_TOKEN_KEY)
+  @UseGuards(JwtAuthGuard, PoliciesGuard)
+  @CheckPolicies((ability: AppAbility) => ability.can('update-own', 'Course'))
+  async convertCourseToInactive(@Req() req, @Param('courseId') courseId: string) {
+    const result = await this.formCourseService.convertCourseToInActive(req.user._id, courseId)
+    return ControllerHelper.handleUpdateResult(result)
+  }
+
   @Patch('approve/:courseId')
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   @UseGuards(JwtAuthGuard, PoliciesGuard)

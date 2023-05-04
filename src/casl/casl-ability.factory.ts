@@ -18,7 +18,6 @@ export class CaslAbilityFactory {
       permissionObj[item.documentPermission.name] = item.enabledPermissions
       this.setPermissions(can, item.documentPermission.name, item.enabledPermissions, item.onlyForCreator)
     })
-    // cannot(Action.Delete, Course, { isPublished: true });
 
     return build()
   }

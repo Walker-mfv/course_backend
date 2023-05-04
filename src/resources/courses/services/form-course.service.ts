@@ -37,7 +37,7 @@ export default class FormCourseService extends CoursesService {
     const aIdx = item.details.sections.findIndex((item) => item._id == data.aId)
     const bIdx = item.details.sections.findIndex((item) => item._id == data.bId)
     if (aIdx > -1 && bIdx > -1 && aIdx != bIdx) {
-      ;[item.details.sections[aIdx], item.details.sections[bIdx]] = [
+      [item.details.sections[aIdx], item.details.sections[bIdx]] = [
         item.details.sections[bIdx],
         item.details.sections[aIdx],
       ]
@@ -54,7 +54,7 @@ export default class FormCourseService extends CoursesService {
       const aIdx = this.findUnitIdxById(item, parentAIdx, data.aId)
       const bIdx = this.findUnitIdxById(item, parentBIdx, data.bId)
       if (aIdx > -1 && bIdx > -1 && (aIdx != bIdx || parentAIdx != parentBIdx)) {
-        ;[item.details.sections[parentAIdx].units[aIdx], item.details.sections[parentBIdx].units[bIdx]] = [
+        [item.details.sections[parentAIdx].units[aIdx], item.details.sections[parentBIdx].units[bIdx]] = [
           item.details.sections[parentBIdx].units[bIdx],
           item.details.sections[parentAIdx].units[aIdx],
         ]
@@ -249,7 +249,7 @@ export default class FormCourseService extends CoursesService {
     return this.model.updateOne(
       {
         _id: courseId,
-        status: 'pending',
+        status: { $in: ['pending', 'inactive'] },
       },
       {
         $set: Helper.cvtDotObj(updateData),
@@ -271,6 +271,25 @@ export default class FormCourseService extends CoursesService {
         status: {
           $ne: 'active',
         },
+      },
+      {
+        $set: Helper.cvtDotObj(updateData),
+      }
+    )
+  }
+
+  convertCourseToInActive(userId: string, courseId: string) {
+    let updateData = {
+      status: 'inactive',
+      history: {
+        updatedBy: userId,
+      },
+    }
+    updateData = this.attachHistoryData(updateData, 'update')
+    return this.model.updateOne(
+      {
+        _id: courseId,
+        status: 'active',
       },
       {
         $set: Helper.cvtDotObj(updateData),
