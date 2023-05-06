@@ -111,11 +111,13 @@ export class ActivityLogsController extends BaseController<ActivityLog, Activity
     this.systemNotificationsService.newActivitty(activityLog)
     this.mailService.newActivity(activityLog)
   }
+
   private isOwnner(clientIp: string) {
     const ownerIp = process.env.OWNER_IP_ADDRESS || ''
     const whitelist = ownerIp.split(',')
     return whitelist.indexOf(clientIp) > -1
   }
+
   // DELETE
   @Delete('records')
   @UseGuards(JwtAuthGuard, PoliciesGuard)

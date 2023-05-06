@@ -69,6 +69,7 @@ export default class FileUploadHelper {
       })
     })
   }
+
   // HELPER METHODS
   private static extractPathFromDownloadUrl(url: string): string | undefined {
     const decodeUrl = Helper.decodeUrl(url)

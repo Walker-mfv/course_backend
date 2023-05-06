@@ -126,6 +126,7 @@ export class RolesService extends BaseModel<Role, RoleDocument> {
     })
     return this.roleModel.updateOne({ _id: roleId, 'permissions.documentPermission': documentPermissionId }, updateData)
   }
+
   deletePermission(roleId: string, documentPermissionId: string) {
     return this.roleModel.updateOne(
       { _id: roleId },

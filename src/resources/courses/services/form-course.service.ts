@@ -212,6 +212,7 @@ export default class FormCourseService extends CoursesService {
     await this.updateContentVideoLength(lectureId, diffDuration)
     return file
   }
+
   async updateLectureVideoFromLibrary(lectureId: string, fileId: string): Promise<FileDocument> {
     const lecture = await this.lecturesService.model.findById(lectureId).populate({ path: 'video' })
     const file = await this.filesService.findById(fileId)

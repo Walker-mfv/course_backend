@@ -6,7 +6,7 @@ import dummy_lectures from 'src/common/dummy_data/dummy_lectures'
 import { BaseModel } from 'src/common/shared/base-model'
 import FileUploadHelper from 'src/common/utils/helpers/file-upload.helper'
 import { CreateFileDto } from '../files/dto/create-file.dto'
-import { File, FileDocument } from '../files/schemas/file.schema'
+import { FileDocument } from '../files/schemas/file.schema'
 import { FilesService } from './../files/files.service'
 import { Lecture, LectureDocument } from './schemas/lecture.schema'
 

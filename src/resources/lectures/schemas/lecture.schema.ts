@@ -18,11 +18,6 @@ export class Lecture {
   thumbnail?: File
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId }], ref: File.name })
   resources: File[] | string[]
-  // @Prop({
-  //     type: [{ type: mongoose.Schema.Types.ObjectId }],
-  //     ref: Comment.name,
-  // })
-  // comments?: Comment[];
   @Prop({ required: true, default: {} })
   history: HistoryTimestampType
 }

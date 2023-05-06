@@ -155,8 +155,6 @@ export abstract class BaseModel<E, D> {
 
     // paginate
     const paginationStages: PipelineStage[] = [{ $skip: skip }, { $limit: limit }]
-    //
-
     const allStages = nonePaginationStages.concat(paginationStages)
     return { allStages, nonePaginationStages, paginationStages }
   }

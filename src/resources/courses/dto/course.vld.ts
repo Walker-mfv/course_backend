@@ -1,17 +1,4 @@
-import { Type } from 'class-transformer'
-import {
-  IsString,
-  MinLength,
-  MaxLength,
-  IsNumber,
-  Min,
-  Max,
-  Matches,
-  ArrayMaxSize,
-  ArrayMinSize,
-  IsArray,
-  ValidateNested,
-} from 'class-validator'
+import { IsString, MaxLength, IsNumber, Min, Max, Matches } from 'class-validator'
 import { ValidatorComposer } from 'src/common/shared/validators/shared.vld'
 
 export function IsCourseTitle({ required }: { required: boolean } = { required: false }): PropertyDecorator {

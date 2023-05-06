@@ -62,6 +62,7 @@ export class OrderPaymentsService extends PaymentsService {
     )
     return new this.model(data).save()
   }
+
   async testHandleCheckout(data: IMomoPaymentExtraData, moneyConfiguration: MoneyConfiguration, date?: Date) {
     const courseIds = data.courses.map((item) => item._id)
     const courses = await this.coursesService.model.find({

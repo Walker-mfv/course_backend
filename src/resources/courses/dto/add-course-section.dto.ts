@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { Type } from 'class-transformer'
-import { IsDefined, IsMongoId, IsNumber, ValidateNested } from 'class-validator'
+import { IsDefined, IsNumber, ValidateNested } from 'class-validator'
 import { Section } from './create-course.dto'
 
 export class AddCourseSectionDto {
