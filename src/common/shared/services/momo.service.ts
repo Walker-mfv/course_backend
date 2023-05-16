@@ -75,11 +75,11 @@ export class MomoService {
   static salePriceFactor = 1
   private prefix = 'https://test-payment.momo.vn'
   private config: IMomoConfig = {
-    partnerCode: 'MOMONUKG20220413',
-    partnerName: 'ATran',
+    partnerCode: 'MOMO',
+    partnerName: 'MOMO',
     storeId: '',
-    accessKey: '5l39NbIVXgbgt1zZ',
-    secretKey: 'GI3Wihw5zdciTsX8TnYlsbGDRRQkYv1Q',
+    accessKey: 'F8BBA842ECF85',
+    secretKey: 'K951B6PE1waDMi640xX08PD3vg6EkVlz',
     ipnUrl: process.env.API_DOMAIN,
     autoCapture: true,
     requestType: 'captureWallet',
