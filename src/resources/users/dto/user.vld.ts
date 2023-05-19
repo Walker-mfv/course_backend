@@ -1,5 +1,3 @@
-import { Type } from 'class-transformer'
-
 import { IsEmail, IsString, MaxLength } from 'class-validator'
 import { ValidatorComposer } from 'src/common/shared/validators/shared.vld'
 
@@ -7,6 +5,9 @@ export function IsUserEmail({ required }: { required: boolean } = { required: fa
   return ValidatorComposer([IsEmail()])({ required })
 }
 export function IsUserPassword({ required }: { required: boolean } = { required: false }): PropertyDecorator {
+  return ValidatorComposer([IsString()])({ required })
+}
+export function IsUserUserName({ required }: { required: boolean } = { required: false }): PropertyDecorator {
   return ValidatorComposer([IsString()])({ required })
 }
 export function IsUserStatus({ required }: { required: boolean } = { required: false }): PropertyDecorator {

@@ -60,6 +60,8 @@ export class User {
   password?: string
   @Prop({ required: true, default: 'inactive' as TUserStatus })
   status: TUserStatus
+  @Prop({ required: true, unique: true, index: true })
+  username: string
   @Prop({
     require: true,
     type: mongoose.Schema.Types.ObjectId,

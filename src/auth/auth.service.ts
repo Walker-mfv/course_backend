@@ -101,6 +101,7 @@ export class AuthService {
 
   async localSignUp(data: SignUpDto) {
     const { firstName, lastName, email, password } = data
+    const username = Helper.getUsernameFromEmail(email)
     // check
     const existingItem = await this.usersService.model.findOne({
       email: data.email,
@@ -113,6 +114,7 @@ export class AuthService {
           lastName,
         },
         status: 'unverified',
+        username,
         email,
         password,
         providers: ['password'],
@@ -129,6 +131,7 @@ export class AuthService {
           firstName,
           lastName,
         },
+        username,
         password,
         permissionCode: Helper.genRandomNumber(this.verificationCodeLength),
         permissionCodeTimestamp: new Date().toISOString(),
@@ -185,9 +188,11 @@ export class AuthService {
       return { isNew: false, user }
     }
 
+    const username = Helper.getUsernameFromEmail(ggUser.email)
     // create new
     const userData: CreateUserDto = {
       email: ggUser.email,
+      username,
       status: 'active',
       profile: {
         firstName: ggUser.firstName,

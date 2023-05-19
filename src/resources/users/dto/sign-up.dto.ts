@@ -11,6 +11,7 @@ export class SignUpDto {
   @IsString()
   @IsDefined()
   lastName: string
+
   @ApiProperty()
   @IsEmail()
   @IsDefined()

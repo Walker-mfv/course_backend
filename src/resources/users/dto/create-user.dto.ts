@@ -12,6 +12,7 @@ import {
   IsUserEmail,
   IsUserPassword,
   IsUserStatus,
+  IsUserUserName,
 } from './user.vld'
 
 export class ProfileDto {
@@ -86,6 +87,10 @@ export class CreateUserDto {
   @ApiProperty()
   @IsUserEmail({ required: true })
   email: string
+
+  @ApiProperty()
+  @IsUserUserName({ required: true })
+  username: string
 
   @ApiProperty({ required: false })
   @IsUserPassword()

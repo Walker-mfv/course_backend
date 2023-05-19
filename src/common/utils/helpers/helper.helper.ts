@@ -92,4 +92,12 @@ export default class Helper {
     queryString = queryString.slice(1)
     return queryString
   }
+
+  static getUsernameFromEmail(email) {
+    // Split the email address at the '@' symbol
+    const parts = email.split('@');
+    // The username is the first part before the '@' symbol
+    const username = parts[0];
+    return username;
+  }
 }
