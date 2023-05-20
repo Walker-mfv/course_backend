@@ -1,13 +1,13 @@
 import { BadRequestException, Body, Controller, Get, Param, Patch, Query, Req, UseGuards } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard'
 import { CaslAbilityFactory } from 'src/casl/casl-ability.factory'
 import { ClientQueryDto } from 'src/common/shared/dtos/client-query.dto'
+import { ACCESS_TOKEN_KEY } from 'src/common/utils/constants/app.constant'
+import { VIEW_INSTRUCTOR_ID } from 'src/common/utils/constants/url-key.constant'
 import ControllerHelper from 'src/common/utils/helpers/ControllerHelper'
 import { TransactionsStatisticService } from 'src/features/statistic/services/transactions-statistic.service'
 import { User } from 'src/resources/users/schemas/user.schema'
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard'
-import { ACCESS_TOKEN_KEY } from 'src/common/utils/constants/app.constant'
-import { VIEW_INSTRUCTOR_ID } from 'src/common/utils/constants/url-key.constant'
 import InstructorCoursesService from '../../courses/services/instructor-courses.service'
 import { InstructorPaymentsService } from '../../payments/services/instructor-payments.service'
 import { UpdateReviewResponseDto } from '../../reviews/dto/update-review-response.dto'
@@ -78,10 +78,12 @@ export class UserInstructorController {
   countCourses(@Req() req, @Query() query: ClientQueryDto) {
     return this.instructorCoursesService.countCourses(this.getInstructorId(req.user, query[VIEW_INSTRUCTOR_ID]), query)
   }
+
   @Get('courses')
   fetchCourses(@Req() req, @Query() query: ClientQueryDto) {
     return this.instructorCoursesService.fetchCourses(this.getInstructorId(req.user, query[VIEW_INSTRUCTOR_ID]), query)
   }
+
   @Get('count-reviews')
   countReviews(@Req() req, @Query() query: ClientQueryDto) {
     return this.courseReviewsService.countInstructorCourseReviews(
@@ -152,6 +154,7 @@ export class UserInstructorController {
     if (typeof value != 'undefined') return value
     throw new BadRequestException()
   }
+
   @Get('course-rating-stats')
   async fetchCourseRatingStats(@Req() req, @Query() data: CourseFilterDto) {
     return this.courseReviewsService.fetchInstructorCourseRatingStats(

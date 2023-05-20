@@ -24,7 +24,7 @@ export default class InstructorCoursesService extends CoursesService {
     return standardQuery
   }
 
-  async fetchCourses(userId: string, query: ClientQueryDto) {
+  async fetchCourses(userId: string, query?: ClientQueryDto) {
     const standardQuery = this.getInstructorCoursesStandardQuery(userId, query)
     const result = await this.model.aggregate([
       {
@@ -71,6 +71,7 @@ export default class InstructorCoursesService extends CoursesService {
           history: 1,
           numStudentLoved: { $size: '$studentLoved' },
           numStudent: { $size: '$students' },
+          promotions: 1,
         },
       },
     ])

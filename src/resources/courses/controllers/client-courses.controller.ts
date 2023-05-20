@@ -19,6 +19,7 @@ export class CoursesClientController {
   getLatestItems(@Query() query: FetchOptionsDto) {
     return this.clientCoursesService.getLatestItems(query)
   }
+
   @Get('/count-latest-items')
   countLatestItems() {
     return this.clientCoursesService.countLatestItems()
@@ -28,10 +29,12 @@ export class CoursesClientController {
   getMostPopularItems(@Query() query: FetchOptionsDto) {
     return this.clientCoursesService.getMostPopularItems(query)
   }
+
   @Get('/count-most-popular-items')
   countMostPopularItems() {
     return this.clientCoursesService.countMostPopularItems()
   }
+
   @Get('/highest-rating-items')
   getHighestRatingItems(@Query() query: FetchOptionsDto) {
     return this.clientCoursesService.getHighestRatingItems(query)

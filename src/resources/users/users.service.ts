@@ -125,6 +125,13 @@ export class UsersService extends BaseModel<User, UserDocument> {
     return this.findOne({ email })
   }
 
+  async findByUsername(username: string): Promise<UserDocument | null> {
+    const user = await this.findOne({ username })
+    if (!user) throw new Error('User not found')
+    user.populate([{ path: 'role', select: 'name' }])
+    return user
+  }
+
   async findByEmailAndPassword(email: string, password: string): Promise<UserDocument | null> {
     return this.findOne({ email, password })
   }

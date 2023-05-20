@@ -12,6 +12,7 @@ export class CourseReviewsController {
   fetchReviews(@Param('id') id: string, @Query() query: ClientQueryDto) {
     return this.courseReviewsService.fetchCourseReviews(id, query)
   }
+
   @Get('count')
   countReviews(@Param('id') id: string, @Query() query: ClientQueryDto) {
     return this.courseReviewsService.countCourseReviews(id, query)

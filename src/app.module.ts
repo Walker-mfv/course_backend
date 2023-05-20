@@ -9,6 +9,7 @@ import { CaslModule } from './casl/casl.module'
 import { SharedModule } from './common/shared/shared.module'
 import { StatisticModule } from './features/statistic/statistic.module'
 import { MailModule } from './mail/mail.module'
+import { ActivityLogsModule } from './resources/activity-logs/activity-logs.module'
 import { CategoriesModule } from './resources/categories/categories.module'
 import { CommentsModule } from './resources/comments/comments.module'
 import { ConfigurationModule } from './resources/configuration/configuration.module'
@@ -27,8 +28,6 @@ import { TopicsModule } from './resources/topics/topics.module'
 import { TransactionsModule } from './resources/transactions/transactions.module'
 import { UserCourseModule } from './resources/user-course/user-course.module'
 import { UsersModule } from './resources/users/users.module'
-import { UtilsModule } from './resources/utils/utils.module'
-import { ActivityLogsModule } from './resources/activity-logs/activity-logs.module'
 
 @Module({
   imports: [
@@ -62,7 +61,6 @@ import { ActivityLogsModule } from './resources/activity-logs/activity-logs.modu
     StatisticModule,
     MailModule,
     SlidersModule,
-    UtilsModule,
     ActivityLogsModule,
   ],
   controllers: [AppController],
