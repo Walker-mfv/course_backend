@@ -1,4 +1,4 @@
-import { IsString, Matches, MaxLength } from 'class-validator'
+import { IsString, MaxLength } from 'class-validator'
 import { ValidatorComposer } from 'src/common/shared/validators/shared.vld'
 
 export function IsNotificationType({ required }: { required: boolean } = { required: false }): PropertyDecorator {

@@ -577,7 +577,7 @@ export abstract class BaseModel<E, D> {
     return stages
   }
 
-  protected getSelectDataProject(labelField = 'label') {
+  protected getSelectDataProject() {
     return {
       _id: 0,
       value: '$_id',

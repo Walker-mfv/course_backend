@@ -95,6 +95,7 @@ export class UserPaymentService extends UsersService {
     ]
     return pipeline
   }
+
   async getInstructorsWithPayment(query: ClientQueryDto): Promise<User[]> {
     const standardQuery = super.cvtStandardizedQuery(query)
     let pipeline = this.getInstructorsWithPaymentPipeline(query)

@@ -2,9 +2,9 @@ import { Controller, Get, Query, Res } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { ApiTags } from '@nestjs/swagger'
 import { Response } from 'express'
+import { IMomoPaymentCourse, MomoService } from 'src/common/shared/services/momo.service'
 import TestCheckoutDto from '../dto/test-checkout.dto'
 import { OrdersPaymentService } from '../services/orders-payment.service'
-import { IMomoPaymentCourse, MomoService } from 'src/common/shared/services/momo.service'
 import { SystemNotificationsService } from './../../notifications/services/system-notifications.service'
 
 @ApiTags('orders-payment')
@@ -16,6 +16,7 @@ export class OrdersPaymentController {
     private readonly systemNotificationsService: SystemNotificationsService,
     private readonly configService: ConfigService
   ) {}
+
   // TEST
   @Get('test-checkout')
   testCheckout(@Query() query: TestCheckoutDto) {
