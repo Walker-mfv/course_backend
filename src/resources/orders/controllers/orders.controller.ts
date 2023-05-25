@@ -1,5 +1,17 @@
-import { Body, Controller, Get, Param, Patch, Query, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  Patch,
+  Query,
+  UseGuards,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
+import { isValidObjectId } from 'mongoose'
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard'
 import { AppAbility } from 'src/casl/casl-ability.factory'
 import { BaseController } from 'src/common/shared/base-controller'
@@ -39,6 +51,10 @@ export class OrdersController extends BaseController<Order, OrderDocument> {
   @UseGuards(JwtAuthGuard, PoliciesGuard)
   @CheckPolicies((ability: AppAbility) => ability.can('read-own', 'Order'))
   async fetchById(@Param('id') id: string): Promise<Order> {
+    if (!isValidObjectId(id)) {
+      throw new NotFoundException('OrderId không hợp lệ')
+    }
+
     return this.ordersService.getOrderDetail(id)
   }
 
