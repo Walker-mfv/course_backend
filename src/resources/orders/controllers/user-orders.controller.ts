@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query, Req, UseGuards } from '@nestjs/common'
+import { Controller, Get, NotFoundException, Param, Query, Req, UseGuards } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard'
 import { ClientQueryDto } from 'src/common/shared/dtos/client-query.dto'
@@ -18,6 +18,13 @@ export class MyOrdersController {
     return this.ordersService.getMyOrders(req.user._id, query)
   }
 
+  @Get('count')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth(ACCESS_TOKEN_KEY)
+  async countMyOrders(@Req() req): Promise<number> {
+    return this.ordersService.countMyOrders(req.user._id)
+  }
+
   @Get(':id')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
@@ -26,7 +33,7 @@ export class MyOrdersController {
     const isBelongToUser = result.history.createdBy._id.toString() === req.user._id
 
     if (!isBelongToUser) {
-      return null
+      throw new NotFoundException('Order is not found')
     }
     return result
   }

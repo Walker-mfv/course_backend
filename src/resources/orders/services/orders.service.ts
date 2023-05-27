@@ -78,6 +78,19 @@ export class OrdersService extends BaseModel<Order, OrderDocument> {
     return result
   }
 
+  async countMyOrders(userId: string): Promise<number> {
+    const pipeline = [
+      {
+        $match: {
+          'history.createdBy': Helper.cvtObjectId(userId),
+        },
+      },
+    ]
+
+    const result = (await this.model.aggregate(pipeline)).length
+    return result
+  }
+
   async getMyOrderDetail(id: string): Promise<Partial<Order>> {
     const result = await this.model
       .findById(id)

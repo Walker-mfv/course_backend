@@ -52,7 +52,7 @@ export class OrdersController extends BaseController<Order, OrderDocument> {
   @CheckPolicies((ability: AppAbility) => ability.can('read-own', 'Order'))
   async fetchById(@Param('id') id: string): Promise<Order> {
     if (!isValidObjectId(id)) {
-      throw new NotFoundException('OrderId không hợp lệ')
+      throw new NotFoundException('OrderId is not valid')
     }
 
     return this.ordersService.getOrderDetail(id)
