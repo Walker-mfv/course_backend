@@ -10,11 +10,6 @@ export class UpdateProfileDto {
   @ValidateNested()
   profile?: ProfileDto
 
-  // @ApiProperty({ required: false })
-  // @Type(() => RestPasswordDto)
-  // @ValidateNested()
-  // reset?: RestPasswordDto;
-
   @ApiProperty({ required: false })
   @IsUserPassword()
   password?: string

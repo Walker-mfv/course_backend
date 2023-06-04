@@ -12,7 +12,7 @@ import {
   IsUserEmail,
   IsUserPassword,
   IsUserStatus,
-  IsUserUserName,
+  IsUserUserName
 } from './user.vld'
 
 export class ProfileDto {
@@ -40,6 +40,14 @@ export class ProfileDto {
   @ApiProperty({ required: false })
   @IsAddress()
   address?: string
+
+  @ApiProperty({ required: false })
+  @IsAddress()
+  headline?: string
+
+  @ApiProperty({ required: false })
+  @IsAddress()
+  biography?: string
 }
 
 class CourseList {
