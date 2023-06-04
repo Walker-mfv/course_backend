@@ -3,13 +3,12 @@ https://docs.nestjs.com/providers#services
 */
 import { Injectable } from '@nestjs/common'
 import axios from 'axios'
+import { USD_FACTOR } from 'src/common/utils/constants/app.constant'
 import DateHelper from 'src/common/utils/helpers/date.helper'
 import HashHelper from 'src/common/utils/helpers/hash.helper'
 import Helper from 'src/common/utils/helpers/helper.helper'
-import { User } from 'src/resources/users/schemas/user.schema'
 import { Promotions } from 'src/resources/courses/dto/create-course.dto'
-import { Cart } from 'src/resources/users/schemas/user.schema'
-import { USD_FACTOR } from 'src/common/utils/constants/app.constant'
+import { Cart, User } from 'src/resources/users/schemas/user.schema'
 
 export interface IMomoConfig {
   redirectUrl: string
@@ -77,7 +76,7 @@ export class MomoService {
   private config: IMomoConfig = {
     partnerCode: 'MOMO',
     partnerName: 'MOMO',
-    storeId: '',
+    storeId: 'MOMOStore',
     accessKey: 'F8BBA842ECF85',
     secretKey: 'K951B6PE1waDMi640xX08PD3vg6EkVlz',
     ipnUrl: process.env.API_DOMAIN,

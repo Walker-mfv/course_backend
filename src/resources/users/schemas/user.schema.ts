@@ -21,6 +21,10 @@ export class Profile {
   phone?: string
   @Prop()
   address?: string
+  @Prop()
+  headline?: string
+  @Prop()
+  biography?: string
 }
 
 @Schema({ _id: false })
