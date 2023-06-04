@@ -84,6 +84,8 @@ export class UsersController extends BaseController<User, UserDocument> {
       profile: {
         fullName: user.profile.fullName,
         avatar: user.profile.avatar,
+        headline: user.profile.headline,
+        biography: user.profile.biography,
       },
       role: user.role,
       countStudents,
