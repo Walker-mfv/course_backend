@@ -53,6 +53,35 @@ export class Cart {
   courses: CourseDocument[]
 }
 
+export type NotificationType = 'popup' | 'email'
+@Schema({ _id: false })
+export class CalendarEvent {
+  @Prop()
+  id: string
+  @Prop()
+  summary: string
+  @Prop()
+  start_time: string
+  @Prop()
+  end_time: string
+  @Prop()
+  notification_method: NotificationType
+  @Prop()
+  notification_time_before?: number
+  @Prop()
+  course_title?: string
+  @Prop()
+  course_url?: string
+  @Prop()
+  sequence?: string
+  @Prop()
+  frequency?: string
+  @Prop()
+  until?: string
+  @Prop({ required: true })
+  createdAt: string
+}
+
 export type UserProviders = 'password' | 'google'
 export type TUserStatus = 'active' | 'inactive' | 'block' | 'unverified'
 @Schema()
@@ -82,6 +111,8 @@ export class User {
   myCourses: MyCourses
   @Prop({ required: true, default: {} })
   cart: Cart
+  @Prop({ required: false, default: [] })
+  calendarEvents?: CalendarEvent[]
   @Prop({ required: true })
   createdAt: string
   @Prop()

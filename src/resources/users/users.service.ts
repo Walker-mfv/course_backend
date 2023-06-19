@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
+import { Auth, google } from 'googleapis'
 import lodash from 'lodash'
 import { Model } from 'mongoose'
 import dummy_users from 'src/common/dummy_data/dummy_users'
@@ -11,8 +12,9 @@ import UserHelper from 'src/common/utils/helpers/user.helper'
 import { TransactionsStatisticService } from 'src/features/statistic/services/transactions-statistic.service'
 import { Permission } from '../roles/schemas/role.schema'
 import { UserCourseService } from './../user-course/user-course.service'
+import { CreateCalendarDto } from './dto/create-calendar.dto'
 import { FavCoursesDto } from './dto/fav-courses.dto'
-import { Cart, User, UserDocument } from './schemas/user.schema'
+import { CalendarEvent, Cart, User, UserDocument } from './schemas/user.schema'
 
 @Injectable()
 export class UsersService extends BaseModel<User, UserDocument> {
@@ -40,6 +42,8 @@ export class UsersService extends BaseModel<User, UserDocument> {
     'modifiedAt',
   ]
   protected fileFields: string[] = ['profile.avatar']
+  protected oAuth2Client: Auth.OAuth2Client
+  protected calendar: any
 
   get dummyData(): any[] {
     return dummy_users
@@ -55,6 +59,98 @@ export class UsersService extends BaseModel<User, UserDocument> {
     protected userCourseService: UserCourseService
   ) {
     super('users', userModel)
+
+    this.oAuth2Client = new google.auth.OAuth2(
+      process.env.GOOGLE_CLIENT_ID,
+      process.env.GOOGLE_CLIENT_SECRET,
+      'http://localhost:3000/users/me/google/calendar/redirect'
+    )
+
+    this.calendar = google.calendar({
+      version: 'v3',
+    })
+  }
+
+  async loginGoogleCalendar(): Promise<string> {
+    const url = this.oAuth2Client.generateAuthUrl({
+      access_type: 'offline',
+      scope: ['https://www.googleapis.com/auth/calendar'],
+    })
+
+    return url
+  }
+
+  async getOAuth2ClientCalendar(): Promise<Auth.OAuth2Client> {
+    return this.oAuth2Client
+  }
+
+  async createEventCalendar(event: CreateCalendarDto): Promise<any> {
+    const description = event.course_title
+      ? `${event.course_title}<br/><a href=${event.course_url}>${event.course_url}</a>`
+      : ''
+
+    let recurrence: string
+    if (event.frequency === 'DAILY') {
+      recurrence = `RRULE:FREQ=${event.frequency}`
+      if (event.until) {
+        const until = (event.until.split('.')[0] + 'Z').replace(/[:-]/g, '')
+        recurrence += `;UNTIl=${until}`
+      }
+    }
+
+    const eventConvert = {
+      summary: event.summary,
+      description,
+      start: {
+        dateTime: event.start_time,
+        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      },
+      end: {
+        dateTime: event.end_time,
+        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      },
+      reminders: {
+        useDefault: false,
+        overrides: [{ method: event.notification_method, minutes: event.notification_time_before }],
+      },
+      recurrence: recurrence ? [recurrence] : null,
+    }
+
+    return this.calendar.events.insert({
+      calendarId: 'primary',
+      requestBody: eventConvert,
+      auth: this.oAuth2Client,
+    })
+  }
+
+  async addCalendarEvent(userId: string, calendarEvent: CalendarEvent) {
+    const item = await this.userModel.findById(userId)
+    if (item) {
+      item.calendarEvents.push(calendarEvent)
+      await item.save()
+    }
+  }
+
+  async fetchCalender(userId: string): Promise<CalendarEvent[]> {
+    const doc = await this.userModel.findById(userId).select({
+      calendarEvents: 1,
+    })
+    if (doc) return doc.calendarEvents
+  }
+
+  async deleteCalendarEvent(userId: string, eventId: string) {
+    const item = await this.userModel.findById(userId)
+
+    await this.calendar.events.delete({
+      calendarId: 'primary',
+      eventId: eventId,
+      auth: this.oAuth2Client,
+    })
+
+    if (item) {
+      item.calendarEvents = item.calendarEvents.filter((item) => item.id != eventId)
+      await item.save()
+    }
   }
 
   async checkUnique(field: string, value: string): Promise<boolean> {
@@ -82,7 +178,7 @@ export class UsersService extends BaseModel<User, UserDocument> {
   }
 
   async getAuthUserById(id: string): Promise<User> {
-    const user = await this.model
+    const user = (await this.model
       .findById(id, {
         email: 1,
         profile: 1,
@@ -106,7 +202,7 @@ export class UsersService extends BaseModel<User, UserDocument> {
         },
       ])
       .lean()
-      .exec()
+      .exec()) as User
     if (user) {
       user.role.permissions = user.role.permissions.map((item: any) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars

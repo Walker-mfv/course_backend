@@ -27,11 +27,9 @@ export const CategoryAsyncModelFactory: AsyncModelFactory = {
   useFactory: () => {
     const schema = CategorySchema
     schema.pre<Category>('save', function (next) {
-      // console.warn('category:save()');
       next()
     })
     schema.pre<Category>('remove', function (next) {
-      // console.warn('category:remove()');
       next()
     })
     return schema
