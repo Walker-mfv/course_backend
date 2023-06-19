@@ -141,16 +141,16 @@ export class UsersService extends BaseModel<User, UserDocument> {
   async deleteCalendarEvent(userId: string, eventId: string) {
     const item = await this.userModel.findById(userId)
 
-    await this.calendar.events.delete({
-      calendarId: 'primary',
-      eventId: eventId,
-      auth: this.oAuth2Client,
-    })
-
     if (item) {
       item.calendarEvents = item.calendarEvents.filter((item) => item.id != eventId)
       await item.save()
     }
+
+    return this.calendar.events.delete({
+      calendarId: 'primary',
+      eventId: eventId,
+      auth: this.oAuth2Client,
+    })
   }
 
   async checkUnique(field: string, value: string): Promise<boolean> {

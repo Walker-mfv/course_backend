@@ -9,6 +9,7 @@ import {
   Post,
   Req,
   Res,
+  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
@@ -116,6 +117,17 @@ export class UsersMeController {
     else return false
   }
 
+  @Get('google/calendar/logout')
+  async logoutCalendar() {
+    const oAuth2Client = await this.usersService.getOAuth2ClientCalendar()
+    try {
+      await oAuth2Client.revokeCredentials()
+      return true
+    } catch (err) {
+      return false
+    }
+  }
+
   @Post('google/calendar/create-event')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
@@ -155,6 +167,7 @@ export class UsersMeController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
   deleteEvent(@Req() req, @Param('eventId') eventId: string) {
+    if (this.checkAuthCalendar()) return new UnauthorizedException()
     return this.usersService.deleteCalendarEvent(req.user._id, eventId)
   }
 }
