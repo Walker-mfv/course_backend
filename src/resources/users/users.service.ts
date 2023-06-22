@@ -63,7 +63,7 @@ export class UsersService extends BaseModel<User, UserDocument> {
     this.oAuth2Client = new google.auth.OAuth2(
       process.env.GOOGLE_CLIENT_ID,
       process.env.GOOGLE_CLIENT_SECRET,
-      'http://localhost:3000/users/me/google/calendar/redirect'
+      `${process.env.API_DOMAIN}/users/me/google/calendar/redirect`
     )
 
     this.calendar = google.calendar({

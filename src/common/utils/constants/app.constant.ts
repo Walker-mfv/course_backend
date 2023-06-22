@@ -8,8 +8,4 @@ export const ADMIN_ROLE_ID = '622a1be2a84b6d2e216a9a89'
 export const TIME_ZONE = 'Asia/Ho_Chi_Minh'
 
 // CLIENT WHITELIST
-export const CLIENT_WHITELIST = [
-  'http://localhost:3000',
-  'http://localhost:3001',
-  'https://onlinecourse-hsu.vercel.app',
-]
+export const CLIENT_WHITELIST = ['http://localhost:3001', 'https://elearningcourse.io.vn']

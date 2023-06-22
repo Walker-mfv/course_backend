@@ -1,6 +1,6 @@
 import { ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
-import { DocumentBuilder, SwaggerDocumentOptions, SwaggerCustomOptions, SwaggerModule } from '@nestjs/swagger'
+import { DocumentBuilder, SwaggerCustomOptions, SwaggerDocumentOptions, SwaggerModule } from '@nestjs/swagger'
 import cookieParser from 'cookie-parser'
 import { AppModule } from './app.module'
 import { CLIENT_WHITELIST } from './common/utils/constants/app.constant'
@@ -9,7 +9,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     cors: {
       //   origin: process.env.CLIENT_DOMAIN,
-
       origin: function (origin, callback) {
         if (!origin || CLIENT_WHITELIST.indexOf(origin) !== -1) {
           callback(null, true)
@@ -20,6 +19,7 @@ async function bootstrap() {
       credentials: true,
     },
   })
+  app.setGlobalPrefix('api')
   app.use(cookieParser())
   app.useGlobalPipes(new ValidationPipe({ transform: true }))
 
