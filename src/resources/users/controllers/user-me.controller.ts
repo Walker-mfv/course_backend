@@ -60,8 +60,9 @@ export class UsersMeController {
     const code = req.query.code
     const oAuth2Client = await this.usersService.getOAuth2ClientCalendar()
     const { tokens } = await oAuth2Client.getToken(code as string)
+
     // Modify the expiry_date property
-    const expiresInMs = Date.now() + 5 * 60 * 1000
+    const expiresInMs = new Date(tokens.expiry_date).getTime() + 5 * 60 * 1000
     tokens.expiry_date = expiresInMs
 
     oAuth2Client.setCredentials(tokens)
@@ -166,8 +167,9 @@ export class UsersMeController {
   @Delete('google/calendar/events/:eventId')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth(ACCESS_TOKEN_KEY)
-  deleteEvent(@Req() req, @Param('eventId') eventId: string) {
-    if (this.checkAuthCalendar()) return new UnauthorizedException()
+  async deleteEvent(@Req() req, @Param('eventId') eventId: string) {
+    const checkAuth = await this.checkAuthCalendar()
+    if (!checkAuth) return new UnauthorizedException()
     return this.usersService.deleteCalendarEvent(req.user._id, eventId)
   }
 }

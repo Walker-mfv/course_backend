@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { Auth, google } from 'googleapis'
 import lodash from 'lodash'
@@ -146,11 +146,16 @@ export class UsersService extends BaseModel<User, UserDocument> {
       await item.save()
     }
 
-    return this.calendar.events.delete({
-      calendarId: 'primary',
-      eventId: eventId,
-      auth: this.oAuth2Client,
-    })
+    try {
+      const res = await this.calendar.events.delete({
+        calendarId: 'primary',
+        eventId: eventId,
+        auth: this.oAuth2Client,
+      })
+      return res
+    } catch (err) {
+      throw new NotFoundException()
+    }
   }
 
   async checkUnique(field: string, value: string): Promise<boolean> {
