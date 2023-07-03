@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
+import axios from 'axios'
 import { Model } from 'mongoose'
 import { BaseModel } from 'src/common/shared/base-model'
 import { ClientQueryDto } from 'src/common/shared/dtos/client-query.dto'
@@ -22,6 +23,38 @@ export default class ClientCoursesService extends CoursesService {
     protected readonly lecturesService: LecturesService
   ) {
     super(courseModel)
+  }
+
+  async getRecommendedCourses(courseIds: string[]): Promise<any> {
+    const apiUrl = `${process.env.MODEL_DOMAIN}/recommendation?course_ids=${courseIds}`
+
+    try {
+      const response = await axios.get(apiUrl)
+      const courseIds = response.data
+      const courseLists: Course[] = []
+
+      for (const courseId of courseIds) {
+        const courseDetail = await this.courseModel
+          .findById(courseId)
+          .select({
+            basicInfo: 1,
+            details: 1,
+            meta: 1,
+            promotions: 1,
+            history: 1,
+          })
+          .populate({
+            path: 'history.createdBy',
+            select: 'profile.fullName profile.avatar',
+          })
+        if (courseDetail) {
+          courseLists.push(courseDetail)
+        }
+      }
+      return courseLists
+    } catch (error) {
+      throw new Error('Error making API call')
+    }
   }
 
   private get clientExcerptProjection() {

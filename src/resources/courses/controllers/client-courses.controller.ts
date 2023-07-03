@@ -39,10 +39,12 @@ export class CoursesClientController {
   getHighestRatingItems(@Query() query: FetchOptionsDto) {
     return this.clientCoursesService.getHighestRatingItems(query)
   }
+
   @Get('/count-highest-rating-items')
   countHighestRatingItems() {
     return this.clientCoursesService.countHighestRatingItems()
   }
+
   @Get('/count-client-filter/:fields')
   async countClientFilter(@Param('fields') fields: string, @Query() query: ClientQueryDto) {
     const fieldArr: string[] = fields.split(',').filter((val) => val.trim() != '')
@@ -50,12 +52,19 @@ export class CoursesClientController {
       return this.clientCoursesService.countClientFilter(query, fieldArr)
     }
   }
+
   @Get('/client')
   async getClientItems(@Query() query: ClientQueryDto) {
     return this.clientCoursesService.fetchClientItems(query)
   }
+
   @Get('/count-client')
   async countClientItems(@Query() query: ClientQueryDto) {
     return this.clientCoursesService.countClientItems(query)
+  }
+
+  @Get('/recommendation')
+  async getRecommendedCourses(@Query('courseIds') courseIds: string[]) {
+    return this.clientCoursesService.getRecommendedCourses(courseIds)
   }
 }
