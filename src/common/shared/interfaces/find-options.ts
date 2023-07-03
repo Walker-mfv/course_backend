@@ -1,4 +1,8 @@
+interface ProjectOptions {
+  [key: string]: number | ProjectOptions
+}
+
 export default interface IFindOptions {
   lookupMode?: 'detail' | 'basic'
-  project?: { [key: string]: number }
+  project?: ProjectOptions
 }

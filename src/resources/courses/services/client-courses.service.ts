@@ -61,7 +61,14 @@ export default class ClientCoursesService extends CoursesService {
     return {
       basicInfo: 1,
       promotions: 1,
-      history: 1,
+      history: {
+        createdBy: {
+          profile: {
+            fullName: 1,
+            avatar: 1,
+          },
+        },
+      },
       meta: 1,
       details: 1,
     }
@@ -154,7 +161,12 @@ export default class ClientCoursesService extends CoursesService {
   getMostPopularItems(query: FetchOptionsDto) {
     try {
       const { allStages } = this.getMostPopularItemsPipeline(query)
-      return this.model.aggregate(allStages)
+      return this.model.aggregate([
+        ...allStages,
+        {
+          $project: this.clientExcerptProjection,
+        },
+      ])
     } catch (e) {
       return []
     }
@@ -186,7 +198,7 @@ export default class ClientCoursesService extends CoursesService {
 
   getHighestRatingItems(query: FetchOptionsDto) {
     const { allStages } = this.getHighestRatingItemsPipeline(query)
-    return this.model.aggregate(allStages)
+    return this.model.aggregate([...allStages, { $project: this.clientExcerptProjection }])
   }
 
   async countHighestRatingItems() {
