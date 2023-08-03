@@ -282,6 +282,19 @@ export class UserCourseService extends BaseModel<UserCourse, UserCourseDocument>
   }
 
   async updateLearnUnit(userCourseId: string, unitId: string, data: UpdateLearnUnitDto) {
+    const course = await this.userCourseModel.findById(userCourseId).populate({ path: 'course' })
+    if (course) {
+      const existLearnUnit = course.learnDetail.learnUnits.find((item) => item.unitId == unitId)
+      if (!existLearnUnit) {
+        const learnUnitData: LearnUnit = {
+          isCompleted: false,
+          unitId,
+        }
+        course.learnDetail.learnUnits.push(learnUnitData as LearnUnitDocument)
+        await course.save()
+      }
+    }
+
     // prepare data
     const updateDotObj = Helper.cvtDotObj({
       learnDetail: {
